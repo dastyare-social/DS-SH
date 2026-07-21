@@ -1,0 +1,38 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Dastyare Social — SH Links API",
+    "version": "1.0.0",
+    "description": "REST API for short-link management. All endpoints require Bearer API key authentication via the `Authorization` header."
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Static API key configured via the `API_KEY` environment variable. Required for all API calls."
+      }
+    }
+  },
+  "apiDir": "./src/app/api",
+  "schemaDir": "./src",
+  "schemaType": ["typescript", "zod"],
+  "docsUrl": "docs",
+  "includeOpenApiRoutes": true,
+  "includePaths": [
+    "/src/app/api/links/**",
+    "/src/app/api/links/[link]/*"
+  ],
+  "excludePaths": [
+    "/src/app/api/auth/**",
+    "/src/app/api/trpc/**",
+    "/src/app/api/account/**"
+  ],
+  "tags": [
+    {
+      "name": "Links",
+      "description": "Create, read, update, and delete short links."
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "configPath": "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/next.openapi.json",
+  "outputFile": "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/public/openapi.json",
+  "diagnostics": [
+    {
+      "code": "missing-path-params-type",
+      "severity": "warning",
+      "message": "Route /links/{link} contains path parameters link but no @pathParams type is defined.",
+      "filePath": "src/app/api/links/[link]/route.ts",
+      "routePath": "/links/{link}",
+      "metadata": {
+        "pathParams": [
+          "link"
+        ],
+        "suggestedFix": "Add @pathParams <SchemaName>, validate context.params in the handler, or export matching <paramName>Schema helpers."
+      }
+    },
+    {
+      "code": "schema-not-found",
+      "severity": "warning",
+      "message": "No TypeScript or Zod schema definition found for \"200 {LinkResponse} Link retrieved successfully\"; emitting an empty schema.",
+      "filePath": "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/app/(routes)/(main)/layout.tsx",
+      "metadata": {
+        "typeName": "200 {LinkResponse} Link retrieved successfully",
+        "contextFile": null,
+        "suggestedFix": "Add the type to schemaDir, export it from an indexed schema file, or reference an explicit @response/@body/@params schema."
+      }
+    },
+    {
+      "code": "missing-path-params-type",
+      "severity": "warning",
+      "message": "Route /links/{link} contains path parameters link but no @pathParams type is defined.",
+      "filePath": "src/app/api/links/[link]/route.ts",
+      "routePath": "/links/{link}",
+      "metadata": {
+        "pathParams": [
+          "link"
+        ],
+        "suggestedFix": "Add @pathParams <SchemaName>, validate context.params in the handler, or export matching <paramName>Schema helpers."
+      }
+    },
+    {
+      "code": "schema-not-found",
+      "severity": "warning",
+      "message": "No TypeScript or Zod schema definition found for \"200 {LinkResponse} Link updated successfully\"; emitting an empty schema.",
+      "filePath": "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/app/(routes)/(main)/layout.tsx",
+      "metadata": {
+        "typeName": "200 {LinkResponse} Link updated successfully",
+        "contextFile": null,
+        "suggestedFix": "Add the type to schemaDir, export it from an indexed schema file, or reference an explicit @response/@body/@params schema."
+      }
+    },
+    {
+      "code": "missing-path-params-type",
+      "severity": "warning",
+      "message": "Route /links/{link} contains path parameters link but no @pathParams type is defined.",
+      "filePath": "src/app/api/links/[link]/route.ts",
+      "routePath": "/links/{link}",
+      "metadata": {
+        "pathParams": [
+          "link"
+        ],
+        "suggestedFix": "Add @pathParams <SchemaName>, validate context.params in the handler, or export matching <paramName>Schema helpers."
+      }
+    },
+    {
+      "code": "schema-not-found",
+      "severity": "warning",
+      "message": "No TypeScript or Zod schema definition found for \"200 {SuccessResponse} Link deleted successfully\"; emitting an empty schema.",
+      "filePath": "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/app/(routes)/(main)/layout.tsx",
+      "metadata": {
+        "typeName": "200 {SuccessResponse} Link deleted successfully",
+        "contextFile": null,
+        "suggestedFix": "Add the type to schemaDir, export it from an indexed schema file, or reference an explicit @response/@body/@params schema."
+      }
+    },
+    {
+      "code": "schema-not-found",
+      "severity": "warning",
+      "message": "No TypeScript or Zod schema definition found for \"200 {LinkListResponse} Links retrieved successfully\"; emitting an empty schema.",
+      "filePath": "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/app/(routes)/(main)/layout.tsx",
+      "metadata": {
+        "typeName": "200 {LinkListResponse} Links retrieved successfully",
+        "contextFile": null,
+        "suggestedFix": "Add the type to schemaDir, export it from an indexed schema file, or reference an explicit @response/@body/@params schema."
+      }
+    },
+    {
+      "code": "schema-not-found",
+      "severity": "warning",
+      "message": "No TypeScript or Zod schema definition found for \"201 {LinkResponse} Link created successfully\"; emitting an empty schema.",
+      "filePath": "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/app/(routes)/(main)/layout.tsx",
+      "metadata": {
+        "typeName": "201 {LinkResponse} Link created successfully",
+        "contextFile": null,
+        "suggestedFix": "Add the type to schemaDir, export it from an indexed schema file, or reference an explicit @response/@body/@params schema."
+      }
+    }
+  ],
+  "performance": {
+    "prepareTemplateMs": 3.4777919999999085,
+    "loadCustomFragmentsMs": 0.0012500000000272848,
+    "prepareDocumentMs": 3.479041999999936,
+    "scanRouteFilesMs": 1.0620000000001255,
+    "deriveRoutePathMs": 1.386373999997204,
+    "filterRouteCandidatesMs": 0.05283400000189431,
+    "sourcePrecheckMs": 1.362041000000545,
+    "readRouteFilesMs": 0.39670699999919634,
+    "parseRouteFilesMs": 4.41974999999843,
+    "analyzeRouteFilesMs": 22.047999999999092,
+    "typescriptResponseInferenceMs": 0,
+    "processRouteFilesMs": 26.84633299999996,
+    "registerRouteMs": 7687.414541000001,
+    "getSchemaContentMs": 0,
+    "createRequestParamsMs": 0.13079299999844807,
+    "createRequestBodyMs": 0,
+    "processResponsesMs": 372.29512400000203,
+    "createResponseSchemaMs": 0,
+    "buildOperationsMs": 7687.915790999998,
+    "sortAndMergePathsMs": 10.82379100000071,
+    "buildPathsMs": 10.82379100000071,
+    "defaultComponentsAndErrorsMs": 0.21125000000029104,
+    "mergeSchemasMs": 1.508708999999726,
+    "zodPreScanMs": 372.43475,
+    "zodPreprocessMs": 26.81174400000009,
+    "zodConvertMs": 345.14812500000335,
+    "finalizeDocumentMs": 2.953125,
+    "totalMs": 8153.683041999999,
+    "scanRoutesMs": 7715.824123999998
+  }
+}

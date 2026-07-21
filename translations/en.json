@@ -1,0 +1,37 @@
+{
+  "general": {
+    "app_name": "Dastyare Social — SH",
+    "panel": "panel",
+    "login_to_panel": "Login To Panel",
+    "login_panel_subtitle": "Use Email and Password Defined on the Configurations",
+    "login_panel_title": "Panel — Dastyare Social — SH",
+    "login_panel_title_span": "To Manage Your Links without Any BS"
+  },
+  "header": {
+    "create": "Create",
+    "new_short_link": "New Short Link"
+  },
+  "not_found": {
+    "meta_title": "Not Found",
+    "description": "Are You Lost — Seems There's Not What You're Looking For",
+    "back_to_home": "Get Back To Home Page"
+  },
+  "short_link": {
+    "link_label": "LINK",
+    "redirect_to_label": "redirect to",
+    "redirects": "redirects",
+    "edit_link": "Edit Link",
+    "enable": "enable",
+    "disable": "disable",
+    "link": "Link",
+    "delete_short_link": "Delete Short Link",
+    "close": "Close",
+    "save_changes": "Save Changes",
+    "textarea_placeholder": "PUT Your Redirect Link Here / example — workshop.dastyare.social/v2/summer-2026"
+  },
+  "redirect_page": {
+    "meta_title": "Redirect To Link",
+    "title_prefix": "Please Wait a Moment",
+    "title_suffix": "— Redirecting To Original Link..."
+  }
+}

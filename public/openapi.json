@@ -1,0 +1,386 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Dastyare Social — SH Links API",
+    "version": "1.0.0",
+    "description": "REST API for short-link management. All endpoints require Bearer API key authentication via the `Authorization` header."
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Static API key configured via the `API_KEY` environment variable. Required for all API calls."
+      }
+    },
+    "schemas": {
+      "CreateLinkBody": {
+        "type": "object",
+        "properties": {
+          "r_to": {
+            "type": "string",
+            "format": "uri",
+            "description": "Destination URL"
+          },
+          "r_path": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 32,
+            "pattern": "^[a-z0-9-]+$",
+            "description": "Optional custom slug (2–32 lowercase alphanumeric/hyphen chars)"
+          }
+        },
+        "required": [
+          "r_to"
+        ],
+        "description": "Create link request payload"
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Error message"
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "description": "Error response"
+      },
+      "LinkListResponse": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/LinkResponse"
+        },
+        "description": "List of links"
+      },
+      "LinkPathParam": {
+        "type": "object",
+        "properties": {
+          "link": {
+            "type": "string",
+            "description": "Link ID or r_path slug"
+          }
+        },
+        "required": [
+          "link"
+        ],
+        "description": "Link path parameter"
+      },
+      "LinkResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Link ID"
+          },
+          "r_path": {
+            "type": "string",
+            "description": "Short path slug"
+          },
+          "r_to": {
+            "type": "string",
+            "description": "Destination URL"
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "Active state"
+          },
+          "redirects": {
+            "type": "string",
+            "description": "Redirect count"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation timestamp"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update timestamp"
+          }
+        },
+        "required": [
+          "id",
+          "r_path",
+          "r_to",
+          "is_active",
+          "redirects",
+          "createdAt",
+          "updatedAt"
+        ],
+        "description": "Link object"
+      },
+      "SuccessResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Operation success status"
+          }
+        },
+        "required": [
+          "success"
+        ],
+        "description": "Success response"
+      },
+      "UpdateLinkBody": {
+        "type": "object",
+        "properties": {
+          "r_to": {
+            "type": "string",
+            "format": "uri",
+            "description": "New destination URL"
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "Active state (true = enabled, false = disabled)"
+          }
+        },
+        "description": "Update link request payload"
+      }
+    },
+    "responses": {}
+  },
+  "includePaths": [
+    "/src/app/api/links/**",
+    "/src/app/api/links/[link]/*"
+  ],
+  "excludePaths": [
+    "/src/app/api/auth/**",
+    "/src/app/api/trpc/**",
+    "/src/app/api/account/**"
+  ],
+  "tags": [
+    {
+      "name": "Links",
+      "description": "Create, read, update, and delete short links."
+    }
+  ],
+  "paths": {
+    "/links": {
+      "get": {
+        "operationId": "get-links",
+        "summary": "List all short links",
+        "description": "Returns every short link ordered by creation date (newest first).",
+        "tags": [
+          "Links"
+        ],
+        "parameters": [],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/200 {LinkListResponse} Links retrieved successfully"
+                }
+              }
+            }
+          },
+          "401 {ErrorResponse} Unauthorized — invalid or missing API key": {
+            "$ref": "#/components/responses/401 {ErrorResponse} Unauthorized — invalid or missing API key"
+          },
+          "500 {ErrorResponse} Internal server error": {
+            "$ref": "#/components/responses/500 {ErrorResponse} Internal server error"
+          }
+        }
+      },
+      "post": {
+        "operationId": "post-links",
+        "summary": "Create a short link",
+        "description": "Creates a new short link. A random slug is generated when `r_path` is omitted.",
+        "tags": [
+          "Links"
+        ],
+        "parameters": [],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/201 {LinkResponse} Link created successfully"
+                }
+              }
+            }
+          },
+          "400 {ErrorResponse} Validation error — invalid URL or r_path format": {
+            "$ref": "#/components/responses/400 {ErrorResponse} Validation error — invalid URL or r_path format"
+          },
+          "401 {ErrorResponse} Unauthorized — invalid or missing API key": {
+            "$ref": "#/components/responses/401 {ErrorResponse} Unauthorized — invalid or missing API key"
+          },
+          "409 {ErrorResponse} Path already in use": {
+            "$ref": "#/components/responses/409 {ErrorResponse} Path already in use"
+          },
+          "500 {ErrorResponse} Internal server error": {
+            "$ref": "#/components/responses/500 {ErrorResponse} Internal server error"
+          }
+        }
+      }
+    },
+    "/links/{link}": {
+      "get": {
+        "operationId": "get-links-{link}",
+        "summary": "Get a link by ID or slug",
+        "description": "Fetches a single link by its ID or r_path slug (searches by ID first, then by slug).",
+        "tags": [
+          "Links"
+        ],
+        "parameters": [
+          {
+            "name": "link",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "example",
+            "description": "Path parameter: link"
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/200 {LinkResponse} Link retrieved successfully"
+                }
+              }
+            }
+          },
+          "401 {ErrorResponse} Unauthorized — invalid or missing API key": {
+            "$ref": "#/components/responses/401 {ErrorResponse} Unauthorized — invalid or missing API key"
+          },
+          "404 {ErrorResponse} Link not found": {
+            "$ref": "#/components/responses/404 {ErrorResponse} Link not found"
+          },
+          "500 {ErrorResponse} Internal server error": {
+            "$ref": "#/components/responses/500 {ErrorResponse} Internal server error"
+          }
+        }
+      },
+      "patch": {
+        "operationId": "patch-links-{link}",
+        "summary": "Update a link",
+        "description": "Update `r_to` and/or `is_active` for a link identified by ID or slug.",
+        "tags": [
+          "Links"
+        ],
+        "parameters": [
+          {
+            "name": "link",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "example",
+            "description": "Path parameter: link"
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/200 {LinkResponse} Link updated successfully"
+                }
+              }
+            }
+          },
+          "400 {ErrorResponse} Validation error — invalid URL or no fields provided": {
+            "$ref": "#/components/responses/400 {ErrorResponse} Validation error — invalid URL or no fields provided"
+          },
+          "401 {ErrorResponse} Unauthorized — invalid or missing API key": {
+            "$ref": "#/components/responses/401 {ErrorResponse} Unauthorized — invalid or missing API key"
+          },
+          "404 {ErrorResponse} Link not found": {
+            "$ref": "#/components/responses/404 {ErrorResponse} Link not found"
+          },
+          "500 {ErrorResponse} Internal server error": {
+            "$ref": "#/components/responses/500 {ErrorResponse} Internal server error"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "delete-links-{link}",
+        "summary": "Delete a link",
+        "description": "Permanently deletes the link identified by ID or slug.",
+        "tags": [
+          "Links"
+        ],
+        "parameters": [
+          {
+            "name": "link",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "example",
+            "description": "Path parameter: link"
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/200 {SuccessResponse} Link deleted successfully"
+                }
+              }
+            }
+          },
+          "401 {ErrorResponse} Unauthorized — invalid or missing API key": {
+            "$ref": "#/components/responses/401 {ErrorResponse} Unauthorized — invalid or missing API key"
+          },
+          "404 {ErrorResponse} Link not found": {
+            "$ref": "#/components/responses/404 {ErrorResponse} Link not found"
+          },
+          "500 {ErrorResponse} Internal server error": {
+            "$ref": "#/components/responses/500 {ErrorResponse} Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "/api",
+      "description": "API server"
+    }
+  ]
+}
