@@ -23,7 +23,9 @@ const Page = () => {
   // Start the counter immediately — it only navigates away once destination is also ready
   const [counter, setCounter] = useState<number>(COUNTDOWN);
   const [destination, setDestination] = useState<string | null>(null);
-  const [status, setStatus] = useState<"loading" | "active" | "inactive" | "not_found">("loading");
+  const [status, setStatus] = useState<
+    "loading" | "active" | "inactive" | "not_found"
+  >("loading");
   const resolved = useRef(false);
 
   // ── page height ───────────────────────────────────────────────────────────
@@ -39,22 +41,27 @@ const Page = () => {
     if (!r_path || resolved.current) return;
     resolved.current = true;
 
-    recordRedirect(r_path).then((result) => {
-      if (result.success && result.r_to) {
-        setDestination(result.r_to);
-        setStatus("active");
-      } else {
-        // Check if error indicates inactive link vs not found
-        if (result.error?.includes("inactive") || result.error?.includes("is inactive")) {
-          setStatus("inactive");
+    recordRedirect(r_path)
+      .then((result) => {
+        if (result.success && result.r_to) {
+          setDestination(result.r_to);
+          setStatus("active");
         } else {
-          setStatus("not_found");
+          // Check if error indicates inactive link vs not found
+          if (
+            result.error?.includes("inactive") ||
+            result.error?.includes("is inactive")
+          ) {
+            setStatus("inactive");
+          } else {
+            setStatus("not_found");
+          }
         }
-      }
-    }).catch((error) => {
-      console.error("Redirect error:", error);
-      setStatus("not_found");
-    });
+      })
+      .catch((error) => {
+        console.error("Redirect error:", error);
+        setStatus("not_found");
+      });
   }, [r_path]);
 
   // ── countdown — only ticks for active links ───────────────────────────────
@@ -90,26 +97,36 @@ const Page = () => {
       <div className="flex flex-col gap-y-6 px-6 sm:w-sm tracking-[-1.5px] text-center">
         {status === "not_found" ? (
           <div className="flex flex-col gap-y-2">
-            <div className="text-[25px] leading-8 text-primary">Link not found</div>
-            <div className="text-[20px] opacity-80">— {tGeneral("app_name")}</div>
+            <div className="text-[25px] leading-8 text-primary">
+              Link not found
+            </div>
+            <div className="text-[20px] opacity-80">
+              — {tGeneral("app_name")}
+            </div>
           </div>
         ) : status === "inactive" ? (
           <div className="flex flex-col gap-y-2">
-            <div className="text-[25px] leading-8 text-primary">This link is inactive</div>
-            <div className="text-[20px] opacity-80">— {tGeneral("app_name")}</div>
+            <div className="text-[25px] leading-8 text-primary">
+              This link is inactive
+            </div>
+            <div className="text-[20px] opacity-80">
+              — {tGeneral("app_name")}
+            </div>
           </div>
         ) : (
           <div className="flex flex-col gap-y-2">
             <div className="flex justify-center items-center mb-5 w-full">
               <div className="flex justify-center items-center size-10 text-5xl rounded-full border-2 border-dashed border-primary/5 aspect-square bg-primary/3 p-8 text-primary">
-                {status === "active" && counter > 0 ? counter : "…"}
+                {status === "active" && counter > 0 ? counter : "—"}
               </div>
             </div>
             <div className="text-[25px] leading-8">
               {tRedirect("title_prefix")}
               <span className="text-primary"> {tRedirect("title_suffix")}</span>
             </div>
-            <div className="text-[20px] opacity-80">— {tGeneral("app_name")}</div>
+            <div className="text-[20px] opacity-80">
+              — {tGeneral("app_name")}
+            </div>
           </div>
         )}
       </div>

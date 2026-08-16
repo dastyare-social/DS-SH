@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "@/styles/globals.css";
 
 import { NextIntlClientProvider } from "next-intl";
-// ModalProvider is mounted per-page so it can receive page-level callbacks
 import { LangDir, LangFont } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";

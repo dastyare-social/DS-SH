@@ -22,15 +22,21 @@ const Page = () => {
   // ── layout refs ───────────────────────────────────────────────────────────
   const headerRef = useRef<HTMLDivElement | null>(null);
   const footerRef = useRef<HTMLDivElement | null>(null);
-  const pageRef   = useRef<HTMLDivElement | null>(null);
+  const pageRef = useRef<HTMLDivElement | null>(null);
   const [pageHeight, setPageHeight] = useState<number | null>(null);
 
   const updateOffsets = useCallback(() => {
     requestAnimationFrame(() => {
       const h = headerRef.current?.offsetHeight ?? 0;
       const f = footerRef.current?.offsetHeight ?? 0;
-      document.documentElement.style.setProperty("--chat-header-height", `${h}px`);
-      document.documentElement.style.setProperty("--chat-footer-height", `${f + 20}px`);
+      document.documentElement.style.setProperty(
+        "--chat-header-height",
+        `${h}px`,
+      );
+      document.documentElement.style.setProperty(
+        "--chat-footer-height",
+        `${f + 20}px`,
+      );
       setPageHeight(window.innerHeight);
     });
   }, []);
@@ -51,7 +57,9 @@ const Page = () => {
     setLoading(false);
   }, []);
 
-  useEffect(() => { fetchLinks(); }, [fetchLinks]);
+  useEffect(() => {
+    fetchLinks();
+  }, [fetchLinks]);
 
   // ── optimistic toggle active (mutation via tRPC) ──────────────────────────
   const [toggling, setToggling] = useState<string | null>(null);
@@ -60,14 +68,21 @@ const Page = () => {
     setToggling(link.id);
     // optimistic update
     setLinks((prev) =>
-      prev.map((l) => l.id === link.id ? { ...l, is_active: !l.is_active } : l),
+      prev.map((l) =>
+        l.id === link.id ? { ...l, is_active: !l.is_active } : l,
+      ),
     );
     try {
-      await trpc.links.update.mutate({ id: link.id, is_active: !link.is_active });
+      await trpc.links.update.mutate({
+        id: link.id,
+        is_active: !link.is_active,
+      });
     } catch {
       // revert on failure
       setLinks((prev) =>
-        prev.map((l) => l.id === link.id ? { ...l, is_active: link.is_active } : l),
+        prev.map((l) =>
+          l.id === link.id ? { ...l, is_active: link.is_active } : l,
+        ),
       );
     } finally {
       setToggling(null);
@@ -133,14 +148,17 @@ const Page = () => {
         </div>
 
         {/* —— Footer —— */}
-        <div ref={footerRef} className="fixed bottom-0 md:max-w-5xl w-full z-50">
+        <div
+          ref={footerRef}
+          className="fixed bottom-0 md:max-w-5xl w-full z-50"
+        >
           <div className="flex w-full gap-x-1.5 sm:gap-x-2 px-4 pb-3 lg:pb-5 justify-center items-center">
             <Button
               className="text-sm md:text-sm px-3.5 py-1.5 backdrop-blur-3xl bg-white/50"
               disabled={loggingOut}
               onClick={handleLogout}
             >
-              {loggingOut ? "…" : "Logout Your Account"}
+              Logout Your Account
             </Button>
           </div>
         </div>

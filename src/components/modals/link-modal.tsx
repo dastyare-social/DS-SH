@@ -17,11 +17,7 @@ function randomSlug(length = 6): string {
   ).join("");
 }
 
-const ShortLinkModal = ({
-  onMutated,
-}: {
-  onMutated?: () => void;
-}) => {
+const ShortLinkModal = ({ onMutated }: { onMutated?: () => void }) => {
   const { closeModal, data } = useModalStore();
   const tShort = useTranslations("short_link");
 
@@ -33,7 +29,9 @@ const ShortLinkModal = ({
 
   const [redirectTo, setRedirectTo] = useState(data?.r_to ?? "");
   // For create: starts with the generated slug; user can edit it freely
-  const [customPath, setCustomPath] = useState(isEdit ? (data?.r_path ?? "") : generatedPath);
+  const [customPath, setCustomPath] = useState(
+    isEdit ? (data?.r_path ?? "") : generatedPath,
+  );
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
@@ -99,7 +97,9 @@ const ShortLinkModal = ({
       : "sh.dastyare.social/r/";
 
   // Preview always shows what will actually be used
-  const displayPath = isEdit ? data!.r_path : (customPath.trim() || generatedPath);
+  const displayPath = isEdit
+    ? data!.r_path
+    : customPath.trim() || generatedPath;
 
   return (
     <div className="flex flex-col gap-y-2.5 py-4.5 px-6 w-sm border border-secondary/5 rounded-3xl bg-background/50 backdrop-blur-3xl">
@@ -119,7 +119,9 @@ const ShortLinkModal = ({
             type="text"
             value={customPath}
             onChange={(e) =>
-              setCustomPath(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ""))
+              setCustomPath(
+                e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ""),
+              )
             }
             placeholder={generatedPath}
             maxLength={32}
@@ -145,9 +147,7 @@ const ShortLinkModal = ({
         />
       </div>
 
-      {error && (
-        <div className="text-sm text-primary pl-1">{error}</div>
-      )}
+      {error && <div className="text-sm text-primary pl-1">{error}</div>}
 
       {/* —— Actions —— */}
       <div className="flex gap-x-1 text-end pt-3">
@@ -178,7 +178,7 @@ const ShortLinkModal = ({
           disabled={isPending}
           onClick={handleSave}
         >
-          {isPending ? "…" : tShort("save_changes")}
+          {tShort("save_changes")}
         </Button>
       </div>
     </div>
