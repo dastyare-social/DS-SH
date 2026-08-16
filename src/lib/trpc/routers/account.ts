@@ -3,6 +3,7 @@ import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
+import { demoModeError, isDemoMode } from "@/lib/demo-mode";
 import { protectedProcedure, publicProcedure, router } from "@/lib/trpc/trpc";
 
 export const accountRouter = router({
@@ -59,6 +60,10 @@ export const accountRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      if (isDemoMode()) {
+        throw new TRPCError({ code: "FORBIDDEN", message: demoModeError });
+      }
+
       const userId = ctx.session.user.id;
 
       if (Object.keys(input).length === 0) {

@@ -3,6 +3,7 @@
 import { eq, sql } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { links } from "@/lib/db/schema";
+import { demoModeError, isDemoMode } from "@/lib/demo-mode";
 import type { LinkRecord, QueryResult } from "./queries";
 
 function generateId(length = 6): string {
@@ -21,6 +22,10 @@ export async function createLink(input: {
   r_to: string;
   r_path?: string;
 }): Promise<QueryResult<LinkRecord>> {
+  if (isDemoMode()) {
+    return { success: false, error: demoModeError };
+  }
+
   try {
     new URL(input.r_to);
   } catch {
@@ -75,6 +80,10 @@ export async function updateLink(
   id: string,
   patch: { r_to?: string; is_active?: boolean },
 ): Promise<QueryResult<LinkRecord>> {
+  if (isDemoMode()) {
+    return { success: false, error: demoModeError };
+  }
+
   if (patch.r_to !== undefined) {
     try {
       new URL(patch.r_to);
@@ -109,6 +118,10 @@ export async function updateLink(
 export async function enableLink(
   id: string,
 ): Promise<{ success: true } | { success: false; error?: string }> {
+  if (isDemoMode()) {
+    return { success: false, error: demoModeError };
+  }
+
   try {
     const [updated] = await db
       .update(links)
@@ -131,6 +144,10 @@ export async function enableLink(
 export async function disableLink(
   id: string,
 ): Promise<{ success: true } | { success: false; error?: string }> {
+  if (isDemoMode()) {
+    return { success: false, error: demoModeError };
+  }
+
   try {
     const [updated] = await db
       .update(links)
@@ -153,6 +170,10 @@ export async function disableLink(
 export async function deleteLink(
   id: string,
 ): Promise<{ success: true } | { success: false; error?: string }> {
+  if (isDemoMode()) {
+    return { success: false, error: demoModeError };
+  }
+
   try {
     const [deleted] = await db
       .delete(links)

@@ -62,30 +62,56 @@ const Page = () => {
   // ── optimistic toggle active (mutation via tRPC) ──────────────────────────
   const [toggling, setToggling] = useState<string | null>(null);
 
-  const handleToggle = useCallback(async (link: LinkRecord) => {
-    setToggling(link.id);
-    // optimistic update
-    setLinks((prev) =>
-      prev.map((l) =>
-        l.id === link.id ? { ...l, is_active: !l.is_active } : l,
-      ),
-    );
-    try {
-      await trpc.links.update.mutate({
-        id: link.id,
-        is_active: !link.is_active,
-      });
-    } catch {
-      // revert on failure
+  // Transient error shown when a create/update/delete fails (e.g. demo mode)
+  const [writeError, setWriteError] = useState<string | null>(null);
+  const writeErrorTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const showWriteError = useCallback((err: unknown) => {
+    const message =
+      err instanceof Error
+        ? err.message
+        : typeof err === "string"
+          ? err
+          : "Operation failed";
+    setWriteError(message);
+    if (writeErrorTimerRef.current) clearTimeout(writeErrorTimerRef.current);
+    writeErrorTimerRef.current = setTimeout(() => setWriteError(null), 5000);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (writeErrorTimerRef.current) clearTimeout(writeErrorTimerRef.current);
+    };
+  }, []);
+
+  const handleToggle = useCallback(
+    async (link: LinkRecord) => {
+      setToggling(link.id);
+      // optimistic update
       setLinks((prev) =>
         prev.map((l) =>
-          l.id === link.id ? { ...l, is_active: link.is_active } : l,
+          l.id === link.id ? { ...l, is_active: !l.is_active } : l,
         ),
       );
-    } finally {
-      setToggling(null);
-    }
-  }, []);
+      try {
+        await trpc.links.update.mutate({
+          id: link.id,
+          is_active: !link.is_active,
+        });
+      } catch (err) {
+        // revert on failure
+        setLinks((prev) =>
+          prev.map((l) =>
+            l.id === link.id ? { ...l, is_active: link.is_active } : l,
+          ),
+        );
+        showWriteError(err);
+      } finally {
+        setToggling(null);
+      }
+    },
+    [showWriteError],
+  );
 
   // ── logout ────────────────────────────────────────────────────────────────
   const [loggingOut, startLogout] = useTransition();
@@ -144,6 +170,15 @@ const Page = () => {
               />
             ))}
         </div>
+
+        {/* —— Write error toast —— */}
+        {writeError && (
+          <div className="fixed left-1/2 -translate-x-1/2 bottom-24 z-[60] px-4 w-full max-w-2xl pointer-events-none">
+            <div className="w-full rounded-2xl border border-red-500/30 bg-red-500/10 backdrop-blur-md px-4 py-3 text-center text-sm text-red-500">
+              {writeError}
+            </div>
+          </div>
+        )}
 
         {/* —— Footer —— */}
         <div

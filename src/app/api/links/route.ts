@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { createLink, getLinks } from "@/lib/actions/links";
 import { requireApiKeyAuth } from "@/lib/auth/api-key";
+import { isDemoMode } from "@/lib/demo-mode";
 
 export const dynamic = "force-dynamic";
 
@@ -53,6 +54,13 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   const denied = requireApiKeyAuth(req);
   if (denied) return denied;
+
+  if (isDemoMode()) {
+    return NextResponse.json(
+      { error: "Read-only demo mode is active" },
+      { status: 403 },
+    );
+  }
 
   let body: { r_to?: string; r_path?: string };
   try {

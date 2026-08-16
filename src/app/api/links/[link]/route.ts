@@ -6,6 +6,7 @@ import {
   updateLink,
 } from "@/lib/actions/links";
 import { requireApiKeyAuth } from "@/lib/auth/api-key";
+import { isDemoMode } from "@/lib/demo-mode";
 
 export const dynamic = "force-dynamic";
 
@@ -71,6 +72,13 @@ export async function PATCH(req: NextRequest, { params }: Params) {
   const denied = requireApiKeyAuth(req);
   if (denied) return denied;
 
+  if (isDemoMode()) {
+    return NextResponse.json(
+      { error: "Read-only demo mode is active" },
+      { status: 403 },
+    );
+  }
+
   const { link } = await params;
 
   let body: { r_to?: string; is_active?: boolean };
@@ -124,6 +132,13 @@ export async function PATCH(req: NextRequest, { params }: Params) {
 export async function DELETE(req: NextRequest, { params }: Params) {
   const denied = requireApiKeyAuth(req);
   if (denied) return denied;
+
+  if (isDemoMode()) {
+    return NextResponse.json(
+      { error: "Read-only demo mode is active" },
+      { status: 403 },
+    );
+  }
 
   const { link } = await params;
 
