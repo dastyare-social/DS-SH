@@ -20,10 +20,7 @@
   "schemaType": ["typescript", "zod"],
   "docsUrl": "docs",
   "includeOpenApiRoutes": true,
-  "includePaths": [
-    "/src/app/api/links/**",
-    "/src/app/api/links/[link]/*"
-  ],
+  "includePaths": ["/src/app/api/links/**", "/src/app/api/links/[link]/*"],
   "excludePaths": [
     "/src/app/api/auth/**",
     "/src/app/api/trpc/**",

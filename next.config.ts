@@ -6,7 +6,7 @@ const withNextIntl = createNextIntlPlugin("./src/i18n.ts");
 
 const nextConfig: NextConfig = {
   /* config options here */
-  allowedDevOrigins: ['*'],
+  allowedDevOrigins: ["*"],
   reactCompiler: true,
   experimental: {
     globalNotFound: true,

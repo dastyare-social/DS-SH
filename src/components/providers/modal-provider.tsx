@@ -1,11 +1,11 @@
 "use client";
 
-import { useModalStore } from "@/store/use-modal-store";
-import { useEffect } from "react";
-import ShortLinkModal from "../modals/link-modal";
 import * as RadixDialog from "@radix-ui/react-dialog";
-import { Dialog, DialogContent } from "../dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { useEffect } from "react";
+import { useModalStore } from "@/store/use-modal-store";
+import { Dialog, DialogContent } from "../dialog";
+import ShortLinkModal from "../modals/link-modal";
 
 type Props = {
   onMutated?: () => void;
@@ -16,7 +16,9 @@ const ModalProvider = ({ onMutated }: Props) => {
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isOpen]);
 
   if (!isOpen || !type) return null;

@@ -1,9 +1,9 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Button } from "./button";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { Button } from "./button";
 
 /*
     —— used on global-not-found.tsx ——

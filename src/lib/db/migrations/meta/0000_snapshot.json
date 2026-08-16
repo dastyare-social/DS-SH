@@ -62,16 +62,12 @@
         "links_id_unique": {
           "name": "links_id_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "id"
-          ]
+          "columns": ["id"]
         },
         "links_r_path_unique": {
           "name": "links_r_path_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "r_path"
-          ]
+          "columns": ["r_path"]
         }
       },
       "policies": {},

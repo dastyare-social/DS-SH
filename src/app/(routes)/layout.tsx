@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import "@/styles/globals.css";
 
 import { NextIntlClientProvider } from "next-intl";
-import { LangDir, LangFont } from "@/lib/fonts";
-import { cn } from "@/lib/utils";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import NextTopLoader from "nextjs-toploader";
+import { LangDir, LangFont } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
 
 export async function generateMetadata(): Promise<Metadata> {
   const tGeneral = await getTranslations("general");
@@ -13,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: {
       default: tGeneral("app_name"),
-      template: "%s — " + tGeneral("app_name"),
+      template: `%s — ${tGeneral("app_name")}`,
     },
   };
 }

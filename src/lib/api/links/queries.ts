@@ -1,24 +1,21 @@
 "use server";
 
+import { desc, eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { links } from "@/lib/db/schema";
-import { desc, eq } from "drizzle-orm";
 
 export type LinkRecord = typeof links.$inferSelect;
+
+export type QueryResult<T> =
+  | { success: true; data: T }
+  | { success: false; error?: string };
 
 /**
  * Fetch all short links ordered by creation date (newest first).
  */
-export async function getLinks(): Promise<{
-  success: boolean;
-  data?: LinkRecord[];
-  error?: string;
-}> {
+export async function getLinks(): Promise<QueryResult<LinkRecord[]>> {
   try {
-    const rows = await db
-      .select()
-      .from(links)
-      .orderBy(desc(links.createdAt));
+    const rows = await db.select().from(links).orderBy(desc(links.createdAt));
 
     return { success: true, data: rows };
   } catch (err) {
@@ -30,11 +27,9 @@ export async function getLinks(): Promise<{
 /**
  * Fetch a single link by its short path slug.
  */
-export async function getLinkByPath(r_path: string): Promise<{
-  success: boolean;
-  data?: LinkRecord;
-  error?: string;
-}> {
+export async function getLinkByPath(
+  r_path: string,
+): Promise<QueryResult<LinkRecord>> {
   try {
     const [row] = await db
       .select()
@@ -54,11 +49,9 @@ export async function getLinkByPath(r_path: string): Promise<{
 /**
  * Fetch a single link by its ID.
  */
-export async function getLinkById(id: string): Promise<{
-  success: boolean;
-  data?: LinkRecord;
-  error?: string;
-}> {
+export async function getLinkById(
+  id: string,
+): Promise<QueryResult<LinkRecord>> {
   try {
     const [row] = await db
       .select()
@@ -75,19 +68,17 @@ export async function getLinkById(id: string): Promise<{
   }
 }
 
+export type LinkStats = {
+  total: number;
+  active: number;
+  inactive: number;
+  totalRedirects: number;
+};
+
 /**
  * Aggregate statistics across all links.
  */
-export async function getLinkStats(): Promise<{
-  success: boolean;
-  data?: {
-    total: number;
-    active: number;
-    inactive: number;
-    totalRedirects: number;
-  };
-  error?: string;
-}> {
+export async function getLinkStats(): Promise<QueryResult<LinkStats>> {
   try {
     const rows = await db
       .select({ is_active: links.is_active, redirects: links.redirects })

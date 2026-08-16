@@ -1,5 +1,5 @@
 import { createHash, timingSafeEqual } from "node:crypto";
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 const RATE_LIMIT_STORE = new Map<string, { count: number; resetAt: number }>();
 
@@ -16,8 +16,12 @@ const getEnvValue = (name: string, fallback: string) => {
 
 export const getApiKeyConfig = () => ({
   apiKey: getEnvValue("API_KEY", ""),
-  rateLimitMaxRequests: Number(getEnvValue("API_KEY_RATE_LIMIT_MAX_REQUESTS", "30")),
-  rateLimitWindowMs: Number(getEnvValue("API_KEY_RATE_LIMIT_WINDOW_MS", "60000")),
+  rateLimitMaxRequests: Number(
+    getEnvValue("API_KEY_RATE_LIMIT_MAX_REQUESTS", "30"),
+  ),
+  rateLimitWindowMs: Number(
+    getEnvValue("API_KEY_RATE_LIMIT_WINDOW_MS", "60000"),
+  ),
 });
 
 export const getApiKeyRateLimitState = () => RATE_LIMIT_STORE;
@@ -34,7 +38,7 @@ export const requireApiKeyAuth = (req: NextRequest) => {
   if (!apiKey) {
     return NextResponse.json(
       { error: "API key is not configured on the server" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 
@@ -53,10 +57,7 @@ export const requireApiKeyAuth = (req: NextRequest) => {
 
   if (current && current.resetAt > now) {
     if (current.count >= rateLimitMaxRequests) {
-      return NextResponse.json(
-        { error: "Too many requests" },
-        { status: 429 }
-      );
+      return NextResponse.json({ error: "Too many requests" }, { status: 429 });
     }
 
     RATE_LIMIT_STORE.set(key, {

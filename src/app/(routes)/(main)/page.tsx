@@ -1,21 +1,19 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, useTransition } from "react";
 import { Button } from "@/components/button";
-import ShortLink from "@/components/short-link";
-import Loader from "@/components/loader";
 import Header from "@/components/header";
+import Loader from "@/components/loader";
 import ModalProvider from "@/components/providers/modal-provider";
-import { useModalStore } from "@/store/use-modal-store";
-import { trpc } from "@/lib/trpc/client";
+import ShortLink from "@/components/short-link";
+import type { LinkRecord } from "@/lib/actions/links";
 import { getLinks } from "@/lib/actions/links";
 import { signOut } from "@/lib/auth/client";
-import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
-import type { LinkRecord } from "@/lib/actions/links";
+import { trpc } from "@/lib/trpc/client";
+import { useModalStore } from "@/store/use-modal-store";
 
 const Page = () => {
-  const tGeneral = useTranslations("general");
   const router = useRouter();
   const { openModal } = useModalStore();
 

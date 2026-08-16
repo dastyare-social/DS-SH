@@ -1,13 +1,8 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { bearer, openAPI, username } from "better-auth/plugins";
+import { bearer, openAPI } from "better-auth/plugins";
 import { db } from "@/lib/db";
-import {
-  accounts,
-  sessions,
-  users,
-  verifications,
-} from "@/lib/db/schema";
+import { accounts, sessions, users, verifications } from "@/lib/db/schema";
 
 export const auth = betterAuth({
   baseURL: process.env.BETTER_AUTH_URL,
@@ -46,8 +41,5 @@ export const auth = betterAuth({
       maxAge: 5 * 60, // Cache duration in seconds
     },
   },
-  plugins: [
-    openAPI({ path: "/docs", theme: "mars", nonce: "PRO" }),
-    bearer(),
-  ],
+  plugins: [openAPI({ path: "/docs", theme: "mars", nonce: "PRO" }), bearer()],
 });

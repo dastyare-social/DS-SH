@@ -12,4 +12,3 @@ export const links = pgTable("links", {
     .$onUpdate(() => new Date())
     .notNull(),
 });
-

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { links } from "@/lib/db/schema";
+import type { links } from "@/lib/db/schema";
 
 // Export the inferred TypeScript type
 export type LinkRecord = typeof links.$inferSelect;
@@ -9,18 +9,29 @@ export type LinkRecord = typeof links.$inferSelect;
  */
 export const CreateLinkBody = z
   .object({
-    r_to: z.string().url("r_to must be a valid URL").describe("Destination URL"),
+    r_to: z
+      .string()
+      .url("r_to must be a valid URL")
+      .describe("Destination URL"),
     r_path: z
       .string()
       .min(2, "r_path must be at least 2 characters")
       .max(32, "r_path must be at most 32 characters")
-      .regex(/^[a-z0-9-]+$/, "Only lowercase letters, digits and hyphens allowed")
+      .regex(
+        /^[a-z0-9-]+$/,
+        "Only lowercase letters, digits and hyphens allowed",
+      )
       .optional()
-      .describe("Optional custom slug (2–32 lowercase alphanumeric/hyphen chars)"),
+      .describe(
+        "Optional custom slug (2–32 lowercase alphanumeric/hyphen chars)",
+      ),
   })
   .describe("Create link request payload")
   .meta({
-    example: { r_to: "https://workshop.dastyare.social/summer-2026", r_path: "summer-2026" },
+    example: {
+      r_to: "https://workshop.dastyare.social/summer-2026",
+      r_path: "summer-2026",
+    },
   });
 
 /**
@@ -28,12 +39,22 @@ export const CreateLinkBody = z
  */
 export const UpdateLinkBody = z
   .object({
-    r_to: z.string().url("r_to must be a valid URL").optional().describe("New destination URL"),
-    is_active: z.boolean().optional().describe("Active state (true = enabled, false = disabled)"),
+    r_to: z
+      .string()
+      .url("r_to must be a valid URL")
+      .optional()
+      .describe("New destination URL"),
+    is_active: z
+      .boolean()
+      .optional()
+      .describe("Active state (true = enabled, false = disabled)"),
   })
   .describe("Update link request payload")
   .meta({
-    example: { r_to: "https://workshop.dastyare.social/winter-2026", is_active: false },
+    example: {
+      r_to: "https://workshop.dastyare.social/winter-2026",
+      is_active: false,
+    },
   });
 
 /**

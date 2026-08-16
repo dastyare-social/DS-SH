@@ -1,16 +1,16 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
+import { createLink, getLinks } from "@/lib/actions/links";
 import { requireApiKeyAuth } from "@/lib/auth/api-key";
-import { getLinks, createLink } from "@/lib/actions/links";
 
 export const dynamic = "force-dynamic";
 
 /**
  * List all short links
- * 
+ *
  * Returns every short link ordered by creation date (newest first). Includes
  * the redirect counter for each link so you can see which destinations are
  * performing well.
- * 
+ *
  * @openapi
  * @tag Links
  * @summary List all short links
@@ -33,10 +33,10 @@ export async function GET(req: NextRequest) {
 
 /**
  * Create a new short link
- * 
+ *
  * Creates a new short link. A random slug is generated when `r_path` is
  * omitted. The link is created active (`is_active: true`) by default.
- * 
+ *
  * @openapi
  * @tag Links
  * @summary Create a short link
@@ -68,10 +68,13 @@ export async function POST(req: NextRequest) {
   const result = await createLink({ r_to: body.r_to, r_path: body.r_path });
 
   if (!result.success) {
-    const status = result.error?.includes("already in use") ? 409
-      : result.error?.includes("valid URL") ? 400
-      : result.error?.includes("characters") ? 400
-      : 500;
+    const status = result.error?.includes("already in use")
+      ? 409
+      : result.error?.includes("valid URL")
+        ? 400
+        : result.error?.includes("characters")
+          ? 400
+          : 500;
     return NextResponse.json({ error: result.error }, { status });
   }
 

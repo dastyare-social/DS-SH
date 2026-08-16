@@ -1,7 +1,7 @@
-import { z } from "zod";
 import { TRPCError } from "@trpc/server";
-import { publicProcedure, router } from "@/lib/trpc/trpc";
+import { z } from "zod";
 import { recordRedirect } from "@/lib/actions/links";
+import { publicProcedure, router } from "@/lib/trpc/trpc";
 
 export const redirectRouter = router({
   /**
@@ -14,9 +14,11 @@ export const redirectRouter = router({
       const result = await recordRedirect(input.r_path);
       if (!result.success) {
         // Distinguish between "not found" and "inactive" errors
-        const code = result.error?.includes("inactive") ? "FORBIDDEN" : "NOT_FOUND";
+        const code = result.error?.includes("inactive")
+          ? "FORBIDDEN"
+          : "NOT_FOUND";
         throw new TRPCError({ code, message: result.error });
       }
-      return { r_to: result.r_to! };
+      return { r_to: result.r_to };
     }),
 });

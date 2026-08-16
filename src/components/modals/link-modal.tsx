@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useState, useTransition } from "react";
-import { Button } from "../button";
-import { useModalStore } from "@/store/use-modal-store";
 import { useTranslations } from "next-intl";
-import { cn } from "@/lib/utils";
+import { useEffect, useMemo, useState, useTransition } from "react";
+import { createLink, deleteLink, updateLink } from "@/lib/actions/links";
 import { pally } from "@/lib/fonts";
-import { createLink, updateLink, deleteLink } from "@/lib/actions/links";
+import { cn } from "@/lib/utils";
+import { useModalStore } from "@/store/use-modal-store";
+import { Button } from "../button";
 
 /** Client-side random slug — same charset as the server generateId */
 function randomSlug(length = 6): string {
@@ -55,8 +55,8 @@ const ShortLinkModal = ({ onMutated }: { onMutated?: () => void }) => {
     startTransition(async () => {
       let result: { success: boolean; error?: string };
 
-      if (isEdit) {
-        result = await updateLink(data!.id, { r_to: redirectTo.trim() });
+      if (isEdit && data) {
+        result = await updateLink(data.id, { r_to: redirectTo.trim() });
       } else {
         result = await createLink({
           r_to: redirectTo.trim(),
@@ -75,11 +75,11 @@ const ShortLinkModal = ({ onMutated }: { onMutated?: () => void }) => {
   };
 
   const handleDelete = () => {
-    if (!isEdit) return;
+    if (!isEdit || !data) return;
     setError(null);
 
     startTransition(async () => {
-      const result = await deleteLink(data!.id);
+      const result = await deleteLink(data.id);
 
       if (!result.success) {
         setError(result.error ?? "Failed to delete");
@@ -93,13 +93,12 @@ const ShortLinkModal = ({ onMutated }: { onMutated?: () => void }) => {
 
   const shortBase =
     typeof window !== "undefined"
-      ? window.location.origin + "/r/"
+      ? `${window.location.origin}/r/`
       : "sh.dastyare.social/r/";
 
   // Preview always shows what will actually be used
-  const displayPath = isEdit
-    ? data!.r_path
-    : customPath.trim() || generatedPath;
+  const displayPath =
+    isEdit && data ? data.r_path : customPath.trim() || generatedPath;
 
   return (
     <div className="flex flex-col gap-y-2.5 py-4.5 px-6 w-sm border border-secondary/5 rounded-3xl bg-background/50 backdrop-blur-3xl">
@@ -139,7 +138,6 @@ const ShortLinkModal = ({ onMutated }: { onMutated?: () => void }) => {
           placeholder={tShort("textarea_placeholder")}
           autoComplete="off"
           autoCorrect="off"
-          autoFocus={false}
           rows={3}
           maxLength={2000}
           disabled={isPending}

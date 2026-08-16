@@ -1,11 +1,11 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
+import { useTranslations } from "next-intl";
+import type { RefObject } from "react";
 import { useModalStore } from "@/store/use-modal-store";
 import { Button } from "./button";
-import { RefObject } from "react";
-import { useTranslations } from "next-intl";
-import Link from "next/link";
-import Image from "next/image";
 
 type HeaderProps = {
   creating?: boolean;

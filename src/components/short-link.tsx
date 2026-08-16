@@ -1,11 +1,11 @@
 "use client";
 
-import { cn, get_current_base_url } from "@/lib/utils";
-import { Button } from "./button";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { pally } from "@/lib/fonts";
 import { useEffect, useState } from "react";
+import { pally } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
+import { Button } from "./button";
 
 const ShortLink = ({
   r_path,
@@ -38,7 +38,7 @@ const ShortLink = ({
   useEffect(() => {
     // You can safely touch window here
     const base =
-      typeof window !== "undefined" ? window.location.origin + "/r/" : "/r/";
+      typeof window !== "undefined" ? `${window.location.origin}/r/` : "/r/";
     setLink(base + r_path);
   }, [r_path]);
 
@@ -46,16 +46,15 @@ const ShortLink = ({
 
   const content = (
     <div
-      onContextMenu={(e) => e.preventDefault()}
       className={cn(
         "flex max-sm:flex-col py-3.5 gap-x-3.5 items-center justify-between border-b border-secondary/5 px-5 outline-none",
-        className
+        className,
       )}
     >
       <div
         className={cn(
           "flex-1 flex flex-col text-lg max-sm:gap-y-1.5 w-full",
-          is_disabled && "opacity-60"
+          is_disabled && "opacity-60",
         )}
       >
         <div className="flex flex-col sm:flex-row gap-y-0">

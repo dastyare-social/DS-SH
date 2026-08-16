@@ -1,6 +1,33 @@
 {
-  "name": "dastyare_social_sh",
+  "name": "dastyare-social-sh",
   "version": "0.1.0",
+  "description": "Self-hostable short-link service with a dashboard, REST API, OpenAPI docs, and Better Auth.",
+  "license": "MIT",
+  "author": {
+    "name": "Dastyare Social",
+    "url": "https://dastyare.social"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omidshabab/sh.dastyare.social.git"
+  },
+  "homepage": "https://github.com/omidshabab/sh.dastyare.social#readme",
+  "bugs": {
+    "url": "https://github.com/omidshabab/sh.dastyare.social/issues"
+  },
+  "keywords": [
+    "short-link",
+    "url-shortener",
+    "nextjs",
+    "better-auth",
+    "trpc",
+    "drizzle",
+    "openapi",
+    "self-hosted"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
   "private": true,
   "scripts": {
     "dev": "next dev -p 2947",
@@ -8,6 +35,8 @@
     "start": "next start -p 2947",
     "lint": "biome check",
     "format": "biome format --write",
+    "typecheck": "tsc --noEmit",
+    "test": "bun test",
     "bootstrap:admin": "tsx scripts/bootstrap-admin.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx src/lib/db/migrate.ts",
@@ -47,6 +76,7 @@
   "devDependencies": {
     "@biomejs/biome": "2.2.0",
     "@tailwindcss/postcss": "^4",
+    "@types/bun": "^1.3.14",
     "@types/node": "^20",
     "@types/pg": "^8.20.0",
     "@types/react": "^19",

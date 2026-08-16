@@ -1,8 +1,8 @@
-import { ApiReference } from '@scalar/nextjs-api-reference'
+import { ApiReference } from "@scalar/nextjs-api-reference";
 
 const config = {
   url: "/openapi.json",
-  theme: 'mars' as const,
+  theme: "mars" as const,
   defaultOpenAllTags: true,
   hideModels: true,
   hideDarkModeToggle: true,
@@ -19,6 +19,6 @@ const config = {
   pathRouting: {
     basePath: "/docs",
   },
-} as const
+} as const;
 
-export const GET = ApiReference(config)
+export const GET = ApiReference(config);

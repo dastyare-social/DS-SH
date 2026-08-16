@@ -1,9 +1,9 @@
-import { z } from "zod";
-import { eq } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
-import { protectedProcedure, publicProcedure, router } from "@/lib/trpc/trpc";
+import { eq } from "drizzle-orm";
+import { z } from "zod";
 import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
+import { protectedProcedure, publicProcedure, router } from "@/lib/trpc/trpc";
 
 export const accountRouter = router({
   /**
@@ -51,7 +51,10 @@ export const accountRouter = router({
           .string()
           .min(2)
           .max(32)
-          .regex(/^[a-z0-9_]+$/, "Only lowercase letters, digits and underscores")
+          .regex(
+            /^[a-z0-9_]+$/,
+            "Only lowercase letters, digits and underscores",
+          )
           .optional(),
       }),
     )

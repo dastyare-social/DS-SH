@@ -1,8 +1,8 @@
 "use client";
 
+import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
-import { useParams } from "next/navigation";
 import { recordRedirect } from "@/lib/actions/links";
 
 const COUNTDOWN = 3;
@@ -43,7 +43,7 @@ const Page = () => {
 
     recordRedirect(r_path)
       .then((result) => {
-        if (result.success && result.r_to) {
+        if (result.success) {
           setDestination(result.r_to);
           setStatus("active");
         } else {

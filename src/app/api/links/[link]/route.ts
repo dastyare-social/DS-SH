@@ -1,6 +1,11 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
+import {
+  deleteLink,
+  getLinkById,
+  getLinkByPath,
+  updateLink,
+} from "@/lib/actions/links";
 import { requireApiKeyAuth } from "@/lib/auth/api-key";
-import { getLinkById, getLinkByPath, updateLink, deleteLink } from "@/lib/actions/links";
 
 export const dynamic = "force-dynamic";
 
@@ -15,9 +20,9 @@ async function resolveLink(identifier: string) {
 
 /**
  * Get a link by ID or slug
- * 
+ *
  * Fetches a single link by its ID or r_path slug (searches by ID first, then by slug).
- * 
+ *
  * @openapi
  * @tag Links
  * @summary Get a link by ID or slug
@@ -44,10 +49,10 @@ export async function GET(req: NextRequest, { params }: Params) {
 
 /**
  * Update a link
- * 
+ *
  * Update `r_to` and/or `is_active` for a link identified by ID or slug.
  * Provide at least one field; omitted fields are left unchanged.
- * 
+ *
  * @openapi
  * @tag Links
  * @summary Update a link
@@ -92,7 +97,7 @@ export async function PATCH(req: NextRequest, { params }: Params) {
     return NextResponse.json({ error: "Link not found" }, { status: 404 });
   }
 
-  const result = await updateLink(resolved.data!.id, patch);
+  const result = await updateLink(resolved.data.id, patch);
   if (!result.success) {
     const status = result.error?.includes("valid URL") ? 400 : 500;
     return NextResponse.json({ error: result.error }, { status });
@@ -102,9 +107,9 @@ export async function PATCH(req: NextRequest, { params }: Params) {
 
 /**
  * Delete a link
- * 
+ *
  * Permanently deletes the link identified by ID or slug. This cannot be undone.
- * 
+ *
  * @openapi
  * @tag Links
  * @summary Delete a link
@@ -127,7 +132,7 @@ export async function DELETE(req: NextRequest, { params }: Params) {
     return NextResponse.json({ error: "Link not found" }, { status: 404 });
   }
 
-  const result = await deleteLink(resolved.data!.id);
+  const result = await deleteLink(resolved.data.id);
   if (!result.success) {
     return NextResponse.json({ error: result.error }, { status: 500 });
   }

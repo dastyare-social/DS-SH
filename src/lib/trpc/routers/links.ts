@@ -1,15 +1,15 @@
-import { z } from "zod";
 import { TRPCError } from "@trpc/server";
-import { protectedProcedure, router } from "@/lib/trpc/trpc";
+import { z } from "zod";
 import {
-  getLinks,
+  createLink,
+  deleteLink,
   getLinkByPath,
   getLinkStats,
-  createLink,
-  updateLink,
-  deleteLink,
+  getLinks,
   recordRedirect,
+  updateLink,
 } from "@/lib/actions/links";
+import { protectedProcedure, router } from "@/lib/trpc/trpc";
 
 export const linksRouter = router({
   /**
@@ -17,8 +17,12 @@ export const linksRouter = router({
    */
   getAll: protectedProcedure.query(async () => {
     const result = await getLinks();
-    if (!result.success) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: result.error });
-    return result.data!;
+    if (!result.success)
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: result.error,
+      });
+    return result.data;
   }),
 
   /**
@@ -28,8 +32,9 @@ export const linksRouter = router({
     .input(z.object({ r_path: z.string().min(1) }))
     .query(async ({ input }) => {
       const result = await getLinkByPath(input.r_path);
-      if (!result.success) throw new TRPCError({ code: "NOT_FOUND", message: result.error });
-      return result.data!;
+      if (!result.success)
+        throw new TRPCError({ code: "NOT_FOUND", message: result.error });
+      return result.data;
     }),
 
   /**
@@ -51,11 +56,13 @@ export const linksRouter = router({
       const result = await createLink(input);
       if (!result.success) {
         throw new TRPCError({
-          code: result.error?.includes("already in use") ? "CONFLICT" : "BAD_REQUEST",
+          code: result.error?.includes("already in use")
+            ? "CONFLICT"
+            : "BAD_REQUEST",
           message: result.error,
         });
       }
-      return result.data!;
+      return result.data;
     }),
 
   /**
@@ -72,16 +79,21 @@ export const linksRouter = router({
     .mutation(async ({ input }) => {
       const { id, ...patch } = input;
       if (Object.keys(patch).length === 0) {
-        throw new TRPCError({ code: "BAD_REQUEST", message: "Provide at least one field to update" });
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Provide at least one field to update",
+        });
       }
       const result = await updateLink(id, patch);
       if (!result.success) {
         throw new TRPCError({
-          code: result.error?.includes("not found") ? "NOT_FOUND" : "BAD_REQUEST",
+          code: result.error?.includes("not found")
+            ? "NOT_FOUND"
+            : "BAD_REQUEST",
           message: result.error,
         });
       }
-      return result.data!;
+      return result.data;
     }),
 
   /**
@@ -91,7 +103,8 @@ export const linksRouter = router({
     .input(z.object({ id: z.string() }))
     .mutation(async ({ input }) => {
       const result = await deleteLink(input.id);
-      if (!result.success) throw new TRPCError({ code: "NOT_FOUND", message: result.error });
+      if (!result.success)
+        throw new TRPCError({ code: "NOT_FOUND", message: result.error });
       return { success: true };
     }),
 
@@ -105,10 +118,12 @@ export const linksRouter = router({
       const result = await recordRedirect(input.r_path);
       if (!result.success) {
         // Distinguish between "not found" and "inactive" errors
-        const code = result.error?.includes("inactive") ? "FORBIDDEN" : "NOT_FOUND";
+        const code = result.error?.includes("inactive")
+          ? "FORBIDDEN"
+          : "NOT_FOUND";
         throw new TRPCError({ code, message: result.error });
       }
-      return { r_to: result.r_to! };
+      return { r_to: result.r_to };
     }),
 
   /**
@@ -116,7 +131,11 @@ export const linksRouter = router({
    */
   stats: protectedProcedure.query(async () => {
     const result = await getLinkStats();
-    if (!result.success) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: result.error });
-    return result.data!;
+    if (!result.success)
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: result.error,
+      });
+    return result.data;
   }),
 });

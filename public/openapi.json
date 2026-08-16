@@ -31,9 +31,7 @@
             "description": "Optional custom slug (2–32 lowercase alphanumeric/hyphen chars)"
           }
         },
-        "required": [
-          "r_to"
-        ],
+        "required": ["r_to"],
         "description": "Create link request payload",
         "example": {
           "r_to": "https://workshop.dastyare.social/summer-2026",
@@ -48,9 +46,7 @@
             "description": "Error message"
           }
         },
-        "required": [
-          "error"
-        ],
+        "required": ["error"],
         "description": "Error response",
         "example": {
           "error": "Link not found"
@@ -92,9 +88,7 @@
             "example": "summer-2026"
           }
         },
-        "required": [
-          "link"
-        ],
+        "required": ["link"],
         "description": "Link path parameter",
         "example": {
           "link": "summer-2026"
@@ -162,9 +156,7 @@
             "description": "Operation success status"
           }
         },
-        "required": [
-          "success"
-        ],
+        "required": ["success"],
         "description": "Success response",
         "example": {
           "success": true
@@ -192,10 +184,7 @@
     },
     "responses": {}
   },
-  "includePaths": [
-    "/src/app/api/links/**",
-    "/src/app/api/links/[link]/*"
-  ],
+  "includePaths": ["/src/app/api/links/**", "/src/app/api/links/[link]/*"],
   "excludePaths": [
     "/src/app/api/auth/**",
     "/src/app/api/trpc/**",
@@ -213,9 +202,7 @@
         "operationId": "get-links",
         "summary": "List all short links",
         "description": "Returns every short link ordered by creation date (newest first). Includes the redirect counter for each link.",
-        "tags": [
-          "Links"
-        ],
+        "tags": ["Links"],
         "parameters": [],
         "security": [
           {
@@ -259,9 +246,7 @@
         "operationId": "post-links",
         "summary": "Create a short link",
         "description": "Creates a new short link. A random slug is generated when `r_path` is omitted.",
-        "tags": [
-          "Links"
-        ],
+        "tags": ["Links"],
         "parameters": [],
         "security": [
           {
@@ -337,9 +322,7 @@
         "operationId": "get-links-{link}",
         "summary": "Get a link by ID or slug",
         "description": "Fetches a single link by its ID or r_path slug (searches by ID first, then by slug).",
-        "tags": [
-          "Links"
-        ],
+        "tags": ["Links"],
         "parameters": [
           {
             "in": "path",
@@ -405,9 +388,7 @@
         "operationId": "patch-links-{link}",
         "summary": "Update a link",
         "description": "Update `r_to` and/or `is_active` for a link identified by ID or slug.",
-        "tags": [
-          "Links"
-        ],
+        "tags": ["Links"],
         "parameters": [
           {
             "in": "path",
@@ -493,9 +474,7 @@
         "operationId": "delete-links-{link}",
         "summary": "Delete a link",
         "description": "Permanently deletes the link identified by ID or slug.",
-        "tags": [
-          "Links"
-        ],
+        "tags": ["Links"],
         "parameters": [
           {
             "in": "path",

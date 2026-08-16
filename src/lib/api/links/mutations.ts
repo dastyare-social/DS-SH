@@ -1,9 +1,9 @@
 "use server";
 
+import { eq, sql } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { links } from "@/lib/db/schema";
-import { eq, sql } from "drizzle-orm";
-import type { LinkRecord } from "./queries";
+import type { LinkRecord, QueryResult } from "./queries";
 
 function generateId(length = 6): string {
   const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -20,7 +20,7 @@ function generateId(length = 6): string {
 export async function createLink(input: {
   r_to: string;
   r_path?: string;
-}): Promise<{ success: boolean; data?: LinkRecord; error?: string }> {
+}): Promise<QueryResult<LinkRecord>> {
   try {
     new URL(input.r_to);
   } catch {
@@ -44,7 +44,10 @@ export async function createLink(input: {
       .limit(1);
 
     if (existing) {
-      return { success: false, error: `The path "/${path}" is already in use.` };
+      return {
+        success: false,
+        error: `The path "/${path}" is already in use.`,
+      };
     }
 
     const [created] = await db
@@ -71,7 +74,7 @@ export async function createLink(input: {
 export async function updateLink(
   id: string,
   patch: { r_to?: string; is_active?: boolean },
-): Promise<{ success: boolean; data?: LinkRecord; error?: string }> {
+): Promise<QueryResult<LinkRecord>> {
   if (patch.r_to !== undefined) {
     try {
       new URL(patch.r_to);
@@ -105,7 +108,7 @@ export async function updateLink(
  */
 export async function enableLink(
   id: string,
-): Promise<{ success: boolean; error?: string }> {
+): Promise<{ success: true } | { success: false; error?: string }> {
   try {
     const [updated] = await db
       .update(links)
@@ -127,7 +130,7 @@ export async function enableLink(
  */
 export async function disableLink(
   id: string,
-): Promise<{ success: boolean; error?: string }> {
+): Promise<{ success: true } | { success: false; error?: string }> {
   try {
     const [updated] = await db
       .update(links)
@@ -149,7 +152,7 @@ export async function disableLink(
  */
 export async function deleteLink(
   id: string,
-): Promise<{ success: boolean; error?: string }> {
+): Promise<{ success: true } | { success: false; error?: string }> {
   try {
     const [deleted] = await db
       .delete(links)
@@ -169,11 +172,11 @@ export async function deleteLink(
  * Atomically increment the redirect counter for a link and return its destination.
  * Used by the /r/[r_path] page.
  */
-export async function recordRedirect(r_path: string): Promise<{
-  success: boolean;
-  r_to?: string;
-  error?: string;
-}> {
+export async function recordRedirect(
+  r_path: string,
+): Promise<
+  { success: true; r_to: string } | { success: false; error?: string }
+> {
   try {
     const [link] = await db
       .select()
@@ -184,7 +187,7 @@ export async function recordRedirect(r_path: string): Promise<{
     if (!link) {
       return { success: false, error: "Link not found." };
     }
-    
+
     if (!link.is_active) {
       return { success: false, error: "Link is inactive." };
     }
