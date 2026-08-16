@@ -10,6 +10,12 @@ const config = {
   expandAllModelSections: true,
   expandAllResponses: true,
   persistAuth: false,
+  mcp: {
+    disabled: true,
+  },
+  agent: {
+    disabled: true,
+  },
   pathRouting: {
     basePath: "/docs",
   },

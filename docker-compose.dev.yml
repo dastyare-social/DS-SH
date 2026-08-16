@@ -5,15 +5,17 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: dastyare-social-sh:latest
+    image: dastyare-social-sh-dev:latest
     ports:
       - "2947:2947"
     env_file:
       - .env
+    volumes:
+      - .:/app
     depends_on:
       - db
     restart: unless-stopped
-    command: sh -c "bun run db:migrate && bun run bootstrap:admin && bun run start"
+    command: sh -c "bun run db:migrate && bun run bootstrap:admin && bun run dev"
 
   db:
     image: postgres:16

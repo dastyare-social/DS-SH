@@ -32,7 +32,7 @@ export default async function GlobalNotFound() {
       <body
         className={cn(
           font,
-          "antialiased tracking-tighter px-5 py-5 md:h-screen flex justify-center items-center select-none"
+          "antialiased tracking-tighter px-5 py-5 md:h-screen flex justify-center items-center select-none",
         )}
       >
         <NextIntlClientProvider locale={locale} messages={messages}>

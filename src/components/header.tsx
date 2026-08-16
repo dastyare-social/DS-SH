@@ -5,6 +5,7 @@ import { Button } from "./button";
 import { RefObject } from "react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import Image from "next/image";
 
 type HeaderProps = {
   creating?: boolean;
@@ -20,8 +21,24 @@ const Header = ({ creating = false, headerRef }: HeaderProps) => {
       ref={headerRef}
       className="fixed top-0 max-w-5xl w-full flex items-center px-5 py-5 border-x border-b border-secondary/5 backdrop-blur-3xl bg-white/50 z-50"
     >
-      <Link href="/" className="flex-1 text-xl tracking-[-1.5px]">
-        {t("general.app_name")}
+      <Link
+        href="/"
+        className="flex gap-x-2.5 flex-1 tracking-[-1.5px] items-center"
+      >
+        <div>
+          <Image
+            src="/icon.png"
+            alt="logo"
+            loading="eager"
+            width={30}
+            height={30}
+            className="aspect-square"
+          />
+        </div>
+
+        <div className="text-[20px] leading-[20px] mt-0.5">
+          {t("general.app_name")}
+        </div>
       </Link>
 
       <Button

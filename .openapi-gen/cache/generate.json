@@ -1,103 +1,8 @@
 {
   "configPath": "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/next.openapi.json",
-  "diagnostics": [
-    {
-      "code": "missing-path-params-type",
-      "severity": "warning",
-      "message": "Route /links/{link} contains path parameters link but no @pathParams type is defined.",
-      "filePath": "src/app/api/links/[link]/route.ts",
-      "routePath": "/links/{link}",
-      "metadata": {
-        "pathParams": [
-          "link"
-        ],
-        "suggestedFix": "Add @pathParams <SchemaName>, validate context.params in the handler, or export matching <paramName>Schema helpers."
-      }
-    },
-    {
-      "code": "schema-not-found",
-      "severity": "warning",
-      "message": "No TypeScript or Zod schema definition found for \"200 {LinkResponse} Link retrieved successfully\"; emitting an empty schema.",
-      "filePath": "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/app/(routes)/(main)/layout.tsx",
-      "metadata": {
-        "typeName": "200 {LinkResponse} Link retrieved successfully",
-        "contextFile": null,
-        "suggestedFix": "Add the type to schemaDir, export it from an indexed schema file, or reference an explicit @response/@body/@params schema."
-      }
-    },
-    {
-      "code": "missing-path-params-type",
-      "severity": "warning",
-      "message": "Route /links/{link} contains path parameters link but no @pathParams type is defined.",
-      "filePath": "src/app/api/links/[link]/route.ts",
-      "routePath": "/links/{link}",
-      "metadata": {
-        "pathParams": [
-          "link"
-        ],
-        "suggestedFix": "Add @pathParams <SchemaName>, validate context.params in the handler, or export matching <paramName>Schema helpers."
-      }
-    },
-    {
-      "code": "schema-not-found",
-      "severity": "warning",
-      "message": "No TypeScript or Zod schema definition found for \"200 {LinkResponse} Link updated successfully\"; emitting an empty schema.",
-      "filePath": "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/app/(routes)/(main)/layout.tsx",
-      "metadata": {
-        "typeName": "200 {LinkResponse} Link updated successfully",
-        "contextFile": null,
-        "suggestedFix": "Add the type to schemaDir, export it from an indexed schema file, or reference an explicit @response/@body/@params schema."
-      }
-    },
-    {
-      "code": "missing-path-params-type",
-      "severity": "warning",
-      "message": "Route /links/{link} contains path parameters link but no @pathParams type is defined.",
-      "filePath": "src/app/api/links/[link]/route.ts",
-      "routePath": "/links/{link}",
-      "metadata": {
-        "pathParams": [
-          "link"
-        ],
-        "suggestedFix": "Add @pathParams <SchemaName>, validate context.params in the handler, or export matching <paramName>Schema helpers."
-      }
-    },
-    {
-      "code": "schema-not-found",
-      "severity": "warning",
-      "message": "No TypeScript or Zod schema definition found for \"200 {SuccessResponse} Link deleted successfully\"; emitting an empty schema.",
-      "filePath": "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/app/(routes)/(main)/layout.tsx",
-      "metadata": {
-        "typeName": "200 {SuccessResponse} Link deleted successfully",
-        "contextFile": null,
-        "suggestedFix": "Add the type to schemaDir, export it from an indexed schema file, or reference an explicit @response/@body/@params schema."
-      }
-    },
-    {
-      "code": "schema-not-found",
-      "severity": "warning",
-      "message": "No TypeScript or Zod schema definition found for \"200 {LinkListResponse} Links retrieved successfully\"; emitting an empty schema.",
-      "filePath": "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/app/(routes)/(main)/layout.tsx",
-      "metadata": {
-        "typeName": "200 {LinkListResponse} Links retrieved successfully",
-        "contextFile": null,
-        "suggestedFix": "Add the type to schemaDir, export it from an indexed schema file, or reference an explicit @response/@body/@params schema."
-      }
-    },
-    {
-      "code": "schema-not-found",
-      "severity": "warning",
-      "message": "No TypeScript or Zod schema definition found for \"201 {LinkResponse} Link created successfully\"; emitting an empty schema.",
-      "filePath": "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/app/(routes)/(main)/layout.tsx",
-      "metadata": {
-        "typeName": "201 {LinkResponse} Link created successfully",
-        "contextFile": null,
-        "suggestedFix": "Add the type to schemaDir, export it from an indexed schema file, or reference an explicit @response/@body/@params schema."
-      }
-    }
-  ],
-  "fingerprint": "919a7c9fdf3daed0fd0ee2b43228c72b0026bb2de627ca8f5432cdb63d1ad308",
-  "inputCount": 63,
+  "diagnostics": [],
+  "fingerprint": "e0b056d4806e40ada1b50e7c4f4084091ecc7cf38da82b76b50306e1e9d6f8e5",
+  "inputCount": 64,
   "inputs": {
     "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/next.openapi.json": {
       "hash": "fadf04e4359d595e5ee141f9143dc5b1c8cef3dbd4001ac4eee8cc5891d9d214",
@@ -115,14 +20,14 @@
       "size": 579
     },
     "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/app/(routes)/(main)/page.tsx": {
-      "hash": "7adbbfc47cc03adb9c28e0f567bee64dd9e5b614ff74224d6c627aa088289a1a",
-      "mtimeMs": 1784530079697.086,
-      "size": 6158
+      "hash": "6f86e81c703d83c7a275b9b409e6bfd6cbec85de64cfd296b1a4c9f77e881a97",
+      "mtimeMs": 1786854840686.347,
+      "size": 6275
     },
     "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/app/(routes)/layout.tsx": {
-      "hash": "9582586576cae773a236b595e6b872b618b8a2dee5bdb79a1a34a614e3d8caf7",
-      "mtimeMs": 1784525955366.621,
-      "size": 1311
+      "hash": "95c33f521cd5fc2b21a35303bfbeb32d13641e8fda1f7168e441de6b3abdc156",
+      "mtimeMs": 1786850235326.3088,
+      "size": 1235
     },
     "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/app/(routes)/loading.tsx": {
       "hash": "b44cc807963ede3db63278bdd1ddb011f1ab9e4b2de31bf804f3179a861ae2e5",
@@ -130,9 +35,9 @@
       "size": 196
     },
     "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/app/(routes)/r/[r_path]/page.tsx": {
-      "hash": "de4a1355df91f2cf56c9a97e85803b07c4b4fdc0a888afd006d1db3f014a40a7",
-      "mtimeMs": 1784605241117.5322,
-      "size": 4645
+      "hash": "39dbc65f9687d7f1d295811e0b7c705d90e83f149a71e0aaa031e3701ed05f18",
+      "mtimeMs": 1786854996261.0264,
+      "size": 4873
     },
     "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/app/(routes)/r/layout.tsx": {
       "hash": "e41506adbff7f66520dab14a4104a5d2f444db6410d090258447eb7fa7148bfa",
@@ -155,14 +60,14 @@
       "size": 1410
     },
     "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/app/api/links/[link]/route.ts": {
-      "hash": "5e89b580e18ea90860a35a9019624cbac580c3f1cb03e2c1d6f41452891ce870",
-      "mtimeMs": 1784603411556.207,
-      "size": 4339
+      "hash": "46639c954e76ac2ce1310332f8be51607652e1c3698e0b648083f72d5b0cfb86",
+      "mtimeMs": 1786859554996.1868,
+      "size": 4411
     },
     "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/app/api/links/route.ts": {
-      "hash": "c3e8a9ccb2bddba906f9a683aafd37520f2cfc292d632cbe8046640bd2e18030",
-      "mtimeMs": 1784603360683.123,
-      "size": 2460
+      "hash": "61cab835ea3a04db7064da72cb38f65dec1c212c38f5b6cb7e8ac49f4327f49f",
+      "mtimeMs": 1786859536872.0654,
+      "size": 2672
     },
     "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/app/api/trpc/[trpc]/route.ts": {
       "hash": "bdb43118043d8382a5e8e532d95975cc2f977e50e0224354e30be4072f689113",
@@ -175,14 +80,14 @@
       "size": 433
     },
     "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/app/docs/route.ts": {
-      "hash": "3f58fabb865144ad4ed39a764240591c6ab18045944d89d565a1c9324e779eec",
-      "mtimeMs": 1784603427003.6274,
-      "size": 402
+      "hash": "9091ac06a86c13ea3106c7412d1b7f460df3a25da46caac8905dba58ea5ee786",
+      "mtimeMs": 1786859476856.8735,
+      "size": 472
     },
     "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/app/global-not-found.tsx": {
-      "hash": "2041b58e76ee17968bc48d5ba8dc1c81d1e5152c4b910f9d99204a71503bb4a6",
-      "mtimeMs": 1777059576000,
-      "size": 1756
+      "hash": "68a55a2ecb5ca40713fed1262fdae8f192cb9675f1ec0268f9225d2b7287dcb7",
+      "mtimeMs": 1786856429524.0256,
+      "size": 1757
     },
     "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/components/button.tsx": {
       "hash": "355b2b54366da89b1f7d6ad3f06667582b39f26fbf08a480918d94162f3c920b",
@@ -200,9 +105,9 @@
       "size": 4558
     },
     "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/components/header.tsx": {
-      "hash": "7807a82472dfbe7d4bb02400299b1e7f2a21755599d1f92932d1eadf82d284d9",
-      "mtimeMs": 1777059548000,
-      "size": 1124
+      "hash": "ee97b8dc84b8d55909acaa8f8864124463297eaa6dcd1668f1c2bbec729a9db0",
+      "mtimeMs": 1786856809294.6003,
+      "size": 1500
     },
     "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/components/input.tsx": {
       "hash": "cad64139f6f5fe8ad7ab6f3ec921e409a5c55ad0fe70e1345d9bd80234fa2622",
@@ -215,9 +120,9 @@
       "size": 312
     },
     "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/components/modals/link-modal.tsx": {
-      "hash": "eb89f8b3d5959759bb1e0ec37b44984aa740e5599b38dd36a3f141e19926e82a",
-      "mtimeMs": 1784533080116.5505,
-      "size": 5683
+      "hash": "75e2645c2ba1d39161953264a916111df7e45e2e02cd52a0cd240e78695d10c9",
+      "mtimeMs": 1786854918334.7517,
+      "size": 5687
     },
     "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/components/not-found-get-back-home-button.tsx": {
       "hash": "39de33b226c65b29678db6a9e0a9cc889a1212e14b5cf8de1592fd799407b595",
@@ -244,6 +149,11 @@
       "mtimeMs": 1784448918881.6052,
       "size": 68
     },
+    "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/global.d.ts": {
+      "hash": "35d26ea66c86da9701e4f4b467913481ffeae910761cea34c775c5dacb7f8eaa",
+      "mtimeMs": 1786855387994.5354,
+      "size": 24
+    },
     "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/i18n.ts": {
       "hash": "1b13c19efe70089243bd4528b49d8ab0bfc4f7f780e56150abdcfed61d84b198",
       "mtimeMs": 1776557436000,
@@ -265,14 +175,14 @@
       "size": 2536
     },
     "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/lib/api/links/schemas.ts": {
-      "hash": "d827729acdeb4a891c578e1a50ac67cdd02295bc3a43d3250a9121113be0f090",
-      "mtimeMs": 1784603503494.0088,
-      "size": 3231
+      "hash": "f19236df94ec6d41acd55e9f1e4685ab320f351f89caed7668c2f519514a8310",
+      "mtimeMs": 1786859606802.3289,
+      "size": 3742
     },
     "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/lib/auth/api-key.ts": {
-      "hash": "e30d6715586791e67d2b50560e8c36958d5ae022d3f935de603b27d8a9c8866f",
-      "mtimeMs": 1784400201868.0962,
-      "size": 1944
+      "hash": "ca5da58aecf04bff0a390823fb4d05f9695cae6e48e20897a1c1f9b90663116c",
+      "mtimeMs": 1786859470680.5562,
+      "size": 2199
     },
     "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/lib/auth/client.ts": {
       "hash": "d166e6f27a1fa7456b0a211647c75f4920f7d798b24c902780f6ab5e85f6dd7a",
@@ -417,115 +327,42 @@
   },
   "outputFile": "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/public/openapi.json",
   "performance": {
-    "prepareTemplateMs": 3.4777919999999085,
-    "loadCustomFragmentsMs": 0.0012500000000272848,
-    "prepareDocumentMs": 3.479041999999936,
-    "scanRouteFilesMs": 1.0620000000001255,
-    "deriveRoutePathMs": 1.386373999997204,
-    "filterRouteCandidatesMs": 0.05283400000189431,
-    "sourcePrecheckMs": 1.362041000000545,
-    "readRouteFilesMs": 0.39670699999919634,
-    "parseRouteFilesMs": 4.41974999999843,
-    "analyzeRouteFilesMs": 22.047999999999092,
+    "prepareTemplateMs": 0.03570799999999963,
+    "loadCustomFragmentsMs": 0.0003749999999911324,
+    "prepareDocumentMs": 0.03608299999999076,
+    "scanRouteFilesMs": 0.39749999999997954,
+    "deriveRoutePathMs": 0.17874999999997954,
+    "filterRouteCandidatesMs": 0.0143339999999057,
+    "sourcePrecheckMs": 0.36025099999994836,
+    "readRouteFilesMs": 0.14533499999993182,
+    "parseRouteFilesMs": 0.7814169999999763,
+    "analyzeRouteFilesMs": 4.540333999999973,
     "typescriptResponseInferenceMs": 0,
-    "processRouteFilesMs": 26.84633299999996,
-    "registerRouteMs": 7687.414541000001,
-    "getSchemaContentMs": 0,
-    "createRequestParamsMs": 0.13079299999844807,
+    "processRouteFilesMs": 5.439542000000017,
+    "registerRouteMs": 1.2618330000000242,
+    "getSchemaContentMs": 0.10374899999999343,
+    "createRequestParamsMs": 0.1392900000000168,
     "createRequestBodyMs": 0,
-    "processResponsesMs": 372.29512400000203,
+    "processResponsesMs": 0.3251669999999649,
     "createResponseSchemaMs": 0,
-    "buildOperationsMs": 7687.915790999998,
-    "sortAndMergePathsMs": 10.82379100000071,
-    "buildPathsMs": 10.82379100000071,
-    "defaultComponentsAndErrorsMs": 0.21125000000029104,
-    "mergeSchemasMs": 1.508708999999726,
-    "zodPreScanMs": 372.43475,
-    "zodPreprocessMs": 26.81174400000009,
-    "zodConvertMs": 345.14812500000335,
-    "finalizeDocumentMs": 2.953125,
-    "totalMs": 8153.683041999999,
-    "scanRoutesMs": 7715.824123999998
+    "buildOperationsMs": 1.558917000000065,
+    "sortAndMergePathsMs": 0.1931250000000091,
+    "buildPathsMs": 0.1931250000000091,
+    "defaultComponentsAndErrorsMs": 0.04412499999995134,
+    "mergeSchemasMs": 0.10308300000002646,
+    "zodPreScanMs": 84.41220899999999,
+    "zodPreprocessMs": 10.127460000000099,
+    "zodConvertMs": 0,
+    "finalizeDocumentMs": 1.17920799999996,
+    "totalMs": 104.83383300000003,
+    "scanRoutesMs": 7.395959000000062
   },
   "routeFragments": {
     "src/app/api/links/[link]/route.ts": {
       "cacheKey": "{\"authPresets\":{\"bearer\":\"BearerAuth\",\"basic\":\"BasicAuth\",\"apikey\":\"ApiKeyAuth\"},\"excludeSchemas\":[],\"framework\":{\"kind\":\"nextjs\",\"router\":\"app\"},\"ignoreRoutes\":[],\"includeOpenApiRoutes\":true,\"openapiVersion\":\"3.0\",\"routePath\":\"/links/{link}\",\"schemaBackends\":[\"typescript\",\"zod\"],\"schemaFiles\":[]}",
-      "diagnostics": [
-        {
-          "code": "missing-path-params-type",
-          "severity": "warning",
-          "message": "Route /links/{link} contains path parameters link but no @pathParams type is defined.",
-          "filePath": "src/app/api/links/[link]/route.ts",
-          "routePath": "/links/{link}",
-          "metadata": {
-            "pathParams": [
-              "link"
-            ],
-            "suggestedFix": "Add @pathParams <SchemaName>, validate context.params in the handler, or export matching <paramName>Schema helpers."
-          }
-        },
-        {
-          "code": "schema-not-found",
-          "severity": "warning",
-          "message": "No TypeScript or Zod schema definition found for \"200 {LinkResponse} Link retrieved successfully\"; emitting an empty schema.",
-          "filePath": "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/app/(routes)/(main)/layout.tsx",
-          "metadata": {
-            "typeName": "200 {LinkResponse} Link retrieved successfully",
-            "contextFile": null,
-            "suggestedFix": "Add the type to schemaDir, export it from an indexed schema file, or reference an explicit @response/@body/@params schema."
-          }
-        },
-        {
-          "code": "missing-path-params-type",
-          "severity": "warning",
-          "message": "Route /links/{link} contains path parameters link but no @pathParams type is defined.",
-          "filePath": "src/app/api/links/[link]/route.ts",
-          "routePath": "/links/{link}",
-          "metadata": {
-            "pathParams": [
-              "link"
-            ],
-            "suggestedFix": "Add @pathParams <SchemaName>, validate context.params in the handler, or export matching <paramName>Schema helpers."
-          }
-        },
-        {
-          "code": "schema-not-found",
-          "severity": "warning",
-          "message": "No TypeScript or Zod schema definition found for \"200 {LinkResponse} Link updated successfully\"; emitting an empty schema.",
-          "filePath": "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/app/(routes)/(main)/layout.tsx",
-          "metadata": {
-            "typeName": "200 {LinkResponse} Link updated successfully",
-            "contextFile": null,
-            "suggestedFix": "Add the type to schemaDir, export it from an indexed schema file, or reference an explicit @response/@body/@params schema."
-          }
-        },
-        {
-          "code": "missing-path-params-type",
-          "severity": "warning",
-          "message": "Route /links/{link} contains path parameters link but no @pathParams type is defined.",
-          "filePath": "src/app/api/links/[link]/route.ts",
-          "routePath": "/links/{link}",
-          "metadata": {
-            "pathParams": [
-              "link"
-            ],
-            "suggestedFix": "Add @pathParams <SchemaName>, validate context.params in the handler, or export matching <paramName>Schema helpers."
-          }
-        },
-        {
-          "code": "schema-not-found",
-          "severity": "warning",
-          "message": "No TypeScript or Zod schema definition found for \"200 {SuccessResponse} Link deleted successfully\"; emitting an empty schema.",
-          "filePath": "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/app/(routes)/(main)/layout.tsx",
-          "metadata": {
-            "typeName": "200 {SuccessResponse} Link deleted successfully",
-            "contextFile": null,
-            "suggestedFix": "Add the type to schemaDir, export it from an indexed schema file, or reference an explicit @response/@body/@params schema."
-          }
-        }
-      ],
+      "diagnostics": [],
       "internalSchemas": {},
-      "mtimeMs": 1784603411556.207,
+      "mtimeMs": 1786859554996.1868,
       "paths": {
         "/links/{link}": {
           "get": {
@@ -537,14 +374,15 @@
             ],
             "parameters": [
               {
-                "name": "link",
                 "in": "path",
+                "name": "link",
                 "required": true,
                 "schema": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Link ID or r_path slug"
                 },
-                "example": "example",
-                "description": "Path parameter: link"
+                "description": "Link ID or r_path slug",
+                "example": "summer-2026"
               }
             ],
             "security": [
@@ -554,23 +392,44 @@
             ],
             "responses": {
               "200": {
-                "description": "Successful response",
+                "description": "Link retrieved successfully",
                 "content": {
                   "application/json": {
                     "schema": {
-                      "$ref": "#/components/schemas/200 {LinkResponse} Link retrieved successfully"
+                      "$ref": "#/components/schemas/LinkResponse"
                     }
                   }
                 }
               },
-              "401 {ErrorResponse} Unauthorized — invalid or missing API key": {
-                "$ref": "#/components/responses/401 {ErrorResponse} Unauthorized — invalid or missing API key"
+              "401": {
+                "description": "Unauthorized — invalid or missing API key",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    }
+                  }
+                }
               },
-              "404 {ErrorResponse} Link not found": {
-                "$ref": "#/components/responses/404 {ErrorResponse} Link not found"
+              "404": {
+                "description": "Link not found",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    }
+                  }
+                }
               },
-              "500 {ErrorResponse} Internal server error": {
-                "$ref": "#/components/responses/500 {ErrorResponse} Internal server error"
+              "500": {
+                "description": "Internal server error",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    }
+                  }
+                }
               }
             }
           },
@@ -583,14 +442,15 @@
             ],
             "parameters": [
               {
-                "name": "link",
                 "in": "path",
+                "name": "link",
                 "required": true,
                 "schema": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Link ID or r_path slug"
                 },
-                "example": "example",
-                "description": "Path parameter: link"
+                "description": "Link ID or r_path slug",
+                "example": "summer-2026"
               }
             ],
             "security": [
@@ -598,28 +458,66 @@
                 "BearerAuth": []
               }
             ],
+            "requestBody": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UpdateLinkBody"
+                  }
+                }
+              },
+              "description": "Update link request"
+            },
             "responses": {
               "200": {
-                "description": "Successful response",
+                "description": "Link updated successfully",
                 "content": {
                   "application/json": {
                     "schema": {
-                      "$ref": "#/components/schemas/200 {LinkResponse} Link updated successfully"
+                      "$ref": "#/components/schemas/LinkResponse"
                     }
                   }
                 }
               },
-              "400 {ErrorResponse} Validation error — invalid URL or no fields provided": {
-                "$ref": "#/components/responses/400 {ErrorResponse} Validation error — invalid URL or no fields provided"
+              "400": {
+                "description": "Validation error — invalid URL or no fields provided",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    }
+                  }
+                }
               },
-              "401 {ErrorResponse} Unauthorized — invalid or missing API key": {
-                "$ref": "#/components/responses/401 {ErrorResponse} Unauthorized — invalid or missing API key"
+              "401": {
+                "description": "Unauthorized — invalid or missing API key",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    }
+                  }
+                }
               },
-              "404 {ErrorResponse} Link not found": {
-                "$ref": "#/components/responses/404 {ErrorResponse} Link not found"
+              "404": {
+                "description": "Link not found",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    }
+                  }
+                }
               },
-              "500 {ErrorResponse} Internal server error": {
-                "$ref": "#/components/responses/500 {ErrorResponse} Internal server error"
+              "500": {
+                "description": "Internal server error",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    }
+                  }
+                }
               }
             }
           },
@@ -632,14 +530,15 @@
             ],
             "parameters": [
               {
-                "name": "link",
                 "in": "path",
+                "name": "link",
                 "required": true,
                 "schema": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Link ID or r_path slug"
                 },
-                "example": "example",
-                "description": "Path parameter: link"
+                "description": "Link ID or r_path slug",
+                "example": "summer-2026"
               }
             ],
             "security": [
@@ -649,30 +548,51 @@
             ],
             "responses": {
               "200": {
-                "description": "Successful response",
+                "description": "Link deleted successfully",
                 "content": {
                   "application/json": {
                     "schema": {
-                      "$ref": "#/components/schemas/200 {SuccessResponse} Link deleted successfully"
+                      "$ref": "#/components/schemas/SuccessResponse"
                     }
                   }
                 }
               },
-              "401 {ErrorResponse} Unauthorized — invalid or missing API key": {
-                "$ref": "#/components/responses/401 {ErrorResponse} Unauthorized — invalid or missing API key"
+              "401": {
+                "description": "Unauthorized — invalid or missing API key",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    }
+                  }
+                }
               },
-              "404 {ErrorResponse} Link not found": {
-                "$ref": "#/components/responses/404 {ErrorResponse} Link not found"
+              "404": {
+                "description": "Link not found",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    }
+                  }
+                }
               },
-              "500 {ErrorResponse} Internal server error": {
-                "$ref": "#/components/responses/500 {ErrorResponse} Internal server error"
+              "500": {
+                "description": "Internal server error",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    }
+                  }
+                }
               }
             }
           }
         }
       },
       "schemas": {},
-      "size": 4339,
+      "size": 4411,
       "tags": {
         "Links": {
           "name": "Links"
@@ -682,38 +602,15 @@
     },
     "src/app/api/links/route.ts": {
       "cacheKey": "{\"authPresets\":{\"bearer\":\"BearerAuth\",\"basic\":\"BasicAuth\",\"apikey\":\"ApiKeyAuth\"},\"excludeSchemas\":[],\"framework\":{\"kind\":\"nextjs\",\"router\":\"app\"},\"ignoreRoutes\":[],\"includeOpenApiRoutes\":true,\"openapiVersion\":\"3.0\",\"routePath\":\"/links\",\"schemaBackends\":[\"typescript\",\"zod\"],\"schemaFiles\":[]}",
-      "diagnostics": [
-        {
-          "code": "schema-not-found",
-          "severity": "warning",
-          "message": "No TypeScript or Zod schema definition found for \"200 {LinkListResponse} Links retrieved successfully\"; emitting an empty schema.",
-          "filePath": "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/app/(routes)/(main)/layout.tsx",
-          "metadata": {
-            "typeName": "200 {LinkListResponse} Links retrieved successfully",
-            "contextFile": null,
-            "suggestedFix": "Add the type to schemaDir, export it from an indexed schema file, or reference an explicit @response/@body/@params schema."
-          }
-        },
-        {
-          "code": "schema-not-found",
-          "severity": "warning",
-          "message": "No TypeScript or Zod schema definition found for \"201 {LinkResponse} Link created successfully\"; emitting an empty schema.",
-          "filePath": "/Users/omidshabab/Documents/dastyare.social/sh.dastyare.social/src/app/(routes)/(main)/layout.tsx",
-          "metadata": {
-            "typeName": "201 {LinkResponse} Link created successfully",
-            "contextFile": null,
-            "suggestedFix": "Add the type to schemaDir, export it from an indexed schema file, or reference an explicit @response/@body/@params schema."
-          }
-        }
-      ],
+      "diagnostics": [],
       "internalSchemas": {},
-      "mtimeMs": 1784603360683.123,
+      "mtimeMs": 1786859536872.0654,
       "paths": {
         "/links": {
           "get": {
             "operationId": "get-links",
             "summary": "List all short links",
-            "description": "Returns every short link ordered by creation date (newest first).",
+            "description": "Returns every short link ordered by creation date (newest first). Includes the redirect counter for each link.",
             "tags": [
               "Links"
             ],
@@ -725,20 +622,34 @@
             ],
             "responses": {
               "200": {
-                "description": "Successful response",
+                "description": "Links retrieved successfully",
                 "content": {
                   "application/json": {
                     "schema": {
-                      "$ref": "#/components/schemas/200 {LinkListResponse} Links retrieved successfully"
+                      "$ref": "#/components/schemas/LinkListResponse"
                     }
                   }
                 }
               },
-              "401 {ErrorResponse} Unauthorized — invalid or missing API key": {
-                "$ref": "#/components/responses/401 {ErrorResponse} Unauthorized — invalid or missing API key"
+              "401": {
+                "description": "Unauthorized — invalid or missing API key",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    }
+                  }
+                }
               },
-              "500 {ErrorResponse} Internal server error": {
-                "$ref": "#/components/responses/500 {ErrorResponse} Internal server error"
+              "500": {
+                "description": "Internal server error",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    }
+                  }
+                }
               }
             }
           },
@@ -755,38 +666,76 @@
                 "BearerAuth": []
               }
             ],
+            "requestBody": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CreateLinkBody"
+                  }
+                }
+              },
+              "description": "Create link request"
+            },
             "responses": {
-              "200": {
-                "description": "Successful response",
+              "201": {
+                "description": "Link created successfully",
                 "content": {
                   "application/json": {
                     "schema": {
-                      "$ref": "#/components/schemas/201 {LinkResponse} Link created successfully"
+                      "$ref": "#/components/schemas/LinkResponse"
                     }
                   }
                 }
               },
-              "400 {ErrorResponse} Validation error — invalid URL or r_path format": {
-                "$ref": "#/components/responses/400 {ErrorResponse} Validation error — invalid URL or r_path format"
+              "400": {
+                "description": "Validation error — invalid URL or r_path format",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    }
+                  }
+                }
               },
-              "401 {ErrorResponse} Unauthorized — invalid or missing API key": {
-                "$ref": "#/components/responses/401 {ErrorResponse} Unauthorized — invalid or missing API key"
+              "401": {
+                "description": "Unauthorized — invalid or missing API key",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    }
+                  }
+                }
               },
-              "409 {ErrorResponse} Path already in use": {
-                "$ref": "#/components/responses/409 {ErrorResponse} Path already in use"
+              "409": {
+                "description": "Path already in use",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    }
+                  }
+                }
               },
-              "500 {ErrorResponse} Internal server error": {
-                "$ref": "#/components/responses/500 {ErrorResponse} Internal server error"
+              "500": {
+                "description": "Internal server error",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    }
+                  }
+                }
               }
             }
           }
         }
       },
       "schemas": {},
-      "size": 2460,
+      "size": 2672,
       "tags": {},
       "webhooks": {}
     }
   },
-  "updatedAt": "2026-07-21T03:43:48.943Z"
+  "updatedAt": "2026-08-16T05:53:34.864Z"
 }

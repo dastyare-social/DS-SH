@@ -1,6 +1,13 @@
+import { createHash, timingSafeEqual } from "node:crypto";
 import { NextRequest, NextResponse } from "next/server";
 
 const RATE_LIMIT_STORE = new Map<string, { count: number; resetAt: number }>();
+
+const safeEqual = (a: string, b: string) => {
+  const ha = createHash("sha256").update(a).digest();
+  const hb = createHash("sha256").update(b).digest();
+  return timingSafeEqual(ha, hb);
+};
 
 const getEnvValue = (name: string, fallback: string) => {
   const value = process.env[name]?.trim();
@@ -36,7 +43,7 @@ export const requireApiKeyAuth = (req: NextRequest) => {
     ? authHeader.slice("Bearer ".length).trim()
     : "";
 
-  if (providedToken !== apiKey) {
+  if (!safeEqual(providedToken, apiKey)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

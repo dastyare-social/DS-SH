@@ -1,0 +1,13 @@
+.next
+node_modules
+dist
+build
+.git
+*.log
+*.local
+.env
+venv
+coverage
+bun.lockb
+package-lock.json
+*.tgz

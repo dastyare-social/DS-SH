@@ -7,16 +7,18 @@ export const dynamic = "force-dynamic";
 /**
  * List all short links
  * 
- * Returns every short link ordered by creation date (newest first).
+ * Returns every short link ordered by creation date (newest first). Includes
+ * the redirect counter for each link so you can see which destinations are
+ * performing well.
  * 
  * @openapi
- * @tags Links
+ * @tag Links
  * @summary List all short links
- * @description Returns every short link ordered by creation date (newest first).
+ * @description Returns every short link ordered by creation date (newest first). Includes the redirect counter for each link.
  * @auth bearer
- * @response 200 {LinkListResponse} Links retrieved successfully
- * @response 401 {ErrorResponse} Unauthorized — invalid or missing API key
- * @response 500 {ErrorResponse} Internal server error
+ * @response 200:LinkListResponse:Links retrieved successfully
+ * @response 401:ErrorResponse:Unauthorized — invalid or missing API key
+ * @response 500:ErrorResponse:Internal server error
  */
 export async function GET(req: NextRequest) {
   const denied = requireApiKeyAuth(req);
@@ -32,19 +34,21 @@ export async function GET(req: NextRequest) {
 /**
  * Create a new short link
  * 
- * Creates a new short link. A random slug is generated when `r_path` is omitted.
+ * Creates a new short link. A random slug is generated when `r_path` is
+ * omitted. The link is created active (`is_active: true`) by default.
  * 
  * @openapi
- * @tags Links
+ * @tag Links
  * @summary Create a short link
  * @description Creates a new short link. A random slug is generated when `r_path` is omitted.
  * @auth bearer
- * @body {CreateLinkBody} Create link request
- * @response 201 {LinkResponse} Link created successfully
- * @response 400 {ErrorResponse} Validation error — invalid URL or r_path format
- * @response 401 {ErrorResponse} Unauthorized — invalid or missing API key
- * @response 409 {ErrorResponse} Path already in use
- * @response 500 {ErrorResponse} Internal server error
+ * @body CreateLinkBody
+ * @bodyDescription Create link request
+ * @response 201:LinkResponse:Link created successfully
+ * @response 400:ErrorResponse:Validation error — invalid URL or r_path format
+ * @response 401:ErrorResponse:Unauthorized — invalid or missing API key
+ * @response 409:ErrorResponse:Path already in use
+ * @response 500:ErrorResponse:Internal server error
  */
 export async function POST(req: NextRequest) {
   const denied = requireApiKeyAuth(req);

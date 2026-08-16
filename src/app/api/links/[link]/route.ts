@@ -19,15 +19,15 @@ async function resolveLink(identifier: string) {
  * Fetches a single link by its ID or r_path slug (searches by ID first, then by slug).
  * 
  * @openapi
- * @tags Links
+ * @tag Links
  * @summary Get a link by ID or slug
  * @description Fetches a single link by its ID or r_path slug (searches by ID first, then by slug).
  * @auth bearer
- * @pathParams {LinkPathParam}
- * @response 200 {LinkResponse} Link retrieved successfully
- * @response 401 {ErrorResponse} Unauthorized — invalid or missing API key
- * @response 404 {ErrorResponse} Link not found
- * @response 500 {ErrorResponse} Internal server error
+ * @pathParams LinkPathParam
+ * @response 200:LinkResponse:Link retrieved successfully
+ * @response 401:ErrorResponse:Unauthorized — invalid or missing API key
+ * @response 404:ErrorResponse:Link not found
+ * @response 500:ErrorResponse:Internal server error
  */
 export async function GET(req: NextRequest, { params }: Params) {
   const denied = requireApiKeyAuth(req);
@@ -46,19 +46,21 @@ export async function GET(req: NextRequest, { params }: Params) {
  * Update a link
  * 
  * Update `r_to` and/or `is_active` for a link identified by ID or slug.
+ * Provide at least one field; omitted fields are left unchanged.
  * 
  * @openapi
- * @tags Links
+ * @tag Links
  * @summary Update a link
  * @description Update `r_to` and/or `is_active` for a link identified by ID or slug.
  * @auth bearer
- * @pathParams {LinkPathParam}
- * @body {UpdateLinkBody} Update link request
- * @response 200 {LinkResponse} Link updated successfully
- * @response 400 {ErrorResponse} Validation error — invalid URL or no fields provided
- * @response 401 {ErrorResponse} Unauthorized — invalid or missing API key
- * @response 404 {ErrorResponse} Link not found
- * @response 500 {ErrorResponse} Internal server error
+ * @pathParams LinkPathParam
+ * @body UpdateLinkBody
+ * @bodyDescription Update link request
+ * @response 200:LinkResponse:Link updated successfully
+ * @response 400:ErrorResponse:Validation error — invalid URL or no fields provided
+ * @response 401:ErrorResponse:Unauthorized — invalid or missing API key
+ * @response 404:ErrorResponse:Link not found
+ * @response 500:ErrorResponse:Internal server error
  */
 export async function PATCH(req: NextRequest, { params }: Params) {
   const denied = requireApiKeyAuth(req);
@@ -101,18 +103,18 @@ export async function PATCH(req: NextRequest, { params }: Params) {
 /**
  * Delete a link
  * 
- * Permanently deletes the link identified by ID or slug.
+ * Permanently deletes the link identified by ID or slug. This cannot be undone.
  * 
  * @openapi
- * @tags Links
+ * @tag Links
  * @summary Delete a link
  * @description Permanently deletes the link identified by ID or slug.
  * @auth bearer
- * @pathParams {LinkPathParam}
- * @response 200 {SuccessResponse} Link deleted successfully
- * @response 401 {ErrorResponse} Unauthorized — invalid or missing API key
- * @response 404 {ErrorResponse} Link not found
- * @response 500 {ErrorResponse} Internal server error
+ * @pathParams LinkPathParam
+ * @response 200:SuccessResponse:Link deleted successfully
+ * @response 401:ErrorResponse:Unauthorized — invalid or missing API key
+ * @response 404:ErrorResponse:Link not found
+ * @response 500:ErrorResponse:Internal server error
  */
 export async function DELETE(req: NextRequest, { params }: Params) {
   const denied = requireApiKeyAuth(req);

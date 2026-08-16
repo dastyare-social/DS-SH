@@ -34,7 +34,11 @@
         "required": [
           "r_to"
         ],
-        "description": "Create link request payload"
+        "description": "Create link request payload",
+        "example": {
+          "r_to": "https://workshop.dastyare.social/summer-2026",
+          "r_path": "summer-2026"
+        }
       },
       "ErrorResponse": {
         "type": "object",
@@ -47,27 +51,54 @@
         "required": [
           "error"
         ],
-        "description": "Error response"
+        "description": "Error response",
+        "example": {
+          "error": "Link not found"
+        }
       },
       "LinkListResponse": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/LinkResponse"
         },
-        "description": "List of links"
+        "description": "List of links",
+        "example": [
+          {
+            "id": "a1b2c3d4e5f6g7h8",
+            "r_path": "summer-2026",
+            "r_to": "https://workshop.dastyare.social/summer-2026",
+            "is_active": true,
+            "redirects": "236",
+            "createdAt": "2026-06-01T10:30:00.000Z",
+            "updatedAt": "2026-07-15T14:20:00.000Z"
+          },
+          {
+            "id": "b2c3d4e5f6g7h8i9",
+            "r_path": "docs",
+            "r_to": "https://docs.dastyare.social",
+            "is_active": true,
+            "redirects": "42",
+            "createdAt": "2026-05-14T15:45:00.000Z",
+            "updatedAt": "2026-05-14T15:45:00.000Z"
+          }
+        ]
       },
       "LinkPathParam": {
         "type": "object",
         "properties": {
           "link": {
             "type": "string",
-            "description": "Link ID or r_path slug"
+            "description": "Link ID or r_path slug",
+            "example": "summer-2026"
           }
         },
         "required": [
           "link"
         ],
-        "description": "Link path parameter"
+        "description": "Link path parameter",
+        "example": {
+          "link": "summer-2026"
+        }
       },
       "LinkResponse": {
         "type": "object",
@@ -112,7 +143,16 @@
           "createdAt",
           "updatedAt"
         ],
-        "description": "Link object"
+        "description": "Link object",
+        "example": {
+          "id": "a1b2c3d4e5f6g7h8",
+          "r_path": "summer-2026",
+          "r_to": "https://workshop.dastyare.social/summer-2026",
+          "is_active": true,
+          "redirects": "236",
+          "createdAt": "2026-06-01T10:30:00.000Z",
+          "updatedAt": "2026-07-15T14:20:00.000Z"
+        }
       },
       "SuccessResponse": {
         "type": "object",
@@ -125,7 +165,10 @@
         "required": [
           "success"
         ],
-        "description": "Success response"
+        "description": "Success response",
+        "example": {
+          "success": true
+        }
       },
       "UpdateLinkBody": {
         "type": "object",
@@ -140,7 +183,11 @@
             "description": "Active state (true = enabled, false = disabled)"
           }
         },
-        "description": "Update link request payload"
+        "description": "Update link request payload",
+        "example": {
+          "r_to": "https://workshop.dastyare.social/winter-2026",
+          "is_active": false
+        }
       }
     },
     "responses": {}
@@ -165,7 +212,7 @@
       "get": {
         "operationId": "get-links",
         "summary": "List all short links",
-        "description": "Returns every short link ordered by creation date (newest first).",
+        "description": "Returns every short link ordered by creation date (newest first). Includes the redirect counter for each link.",
         "tags": [
           "Links"
         ],
@@ -177,20 +224,34 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful response",
+            "description": "Links retrieved successfully",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/200 {LinkListResponse} Links retrieved successfully"
+                  "$ref": "#/components/schemas/LinkListResponse"
                 }
               }
             }
           },
-          "401 {ErrorResponse} Unauthorized — invalid or missing API key": {
-            "$ref": "#/components/responses/401 {ErrorResponse} Unauthorized — invalid or missing API key"
+          "401": {
+            "description": "Unauthorized — invalid or missing API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           },
-          "500 {ErrorResponse} Internal server error": {
-            "$ref": "#/components/responses/500 {ErrorResponse} Internal server error"
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         }
       },
@@ -207,28 +268,66 @@
             "BearerAuth": []
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateLinkBody"
+              }
+            }
+          },
+          "description": "Create link request"
+        },
         "responses": {
-          "200": {
-            "description": "Successful response",
+          "201": {
+            "description": "Link created successfully",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/201 {LinkResponse} Link created successfully"
+                  "$ref": "#/components/schemas/LinkResponse"
                 }
               }
             }
           },
-          "400 {ErrorResponse} Validation error — invalid URL or r_path format": {
-            "$ref": "#/components/responses/400 {ErrorResponse} Validation error — invalid URL or r_path format"
+          "400": {
+            "description": "Validation error — invalid URL or r_path format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           },
-          "401 {ErrorResponse} Unauthorized — invalid or missing API key": {
-            "$ref": "#/components/responses/401 {ErrorResponse} Unauthorized — invalid or missing API key"
+          "401": {
+            "description": "Unauthorized — invalid or missing API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           },
-          "409 {ErrorResponse} Path already in use": {
-            "$ref": "#/components/responses/409 {ErrorResponse} Path already in use"
+          "409": {
+            "description": "Path already in use",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           },
-          "500 {ErrorResponse} Internal server error": {
-            "$ref": "#/components/responses/500 {ErrorResponse} Internal server error"
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         }
       }
@@ -243,14 +342,15 @@
         ],
         "parameters": [
           {
-            "name": "link",
             "in": "path",
+            "name": "link",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Link ID or r_path slug"
             },
-            "example": "example",
-            "description": "Path parameter: link"
+            "description": "Link ID or r_path slug",
+            "example": "summer-2026"
           }
         ],
         "security": [
@@ -260,23 +360,44 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful response",
+            "description": "Link retrieved successfully",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/200 {LinkResponse} Link retrieved successfully"
+                  "$ref": "#/components/schemas/LinkResponse"
                 }
               }
             }
           },
-          "401 {ErrorResponse} Unauthorized — invalid or missing API key": {
-            "$ref": "#/components/responses/401 {ErrorResponse} Unauthorized — invalid or missing API key"
+          "401": {
+            "description": "Unauthorized — invalid or missing API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           },
-          "404 {ErrorResponse} Link not found": {
-            "$ref": "#/components/responses/404 {ErrorResponse} Link not found"
+          "404": {
+            "description": "Link not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           },
-          "500 {ErrorResponse} Internal server error": {
-            "$ref": "#/components/responses/500 {ErrorResponse} Internal server error"
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         }
       },
@@ -289,14 +410,15 @@
         ],
         "parameters": [
           {
-            "name": "link",
             "in": "path",
+            "name": "link",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Link ID or r_path slug"
             },
-            "example": "example",
-            "description": "Path parameter: link"
+            "description": "Link ID or r_path slug",
+            "example": "summer-2026"
           }
         ],
         "security": [
@@ -304,28 +426,66 @@
             "BearerAuth": []
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateLinkBody"
+              }
+            }
+          },
+          "description": "Update link request"
+        },
         "responses": {
           "200": {
-            "description": "Successful response",
+            "description": "Link updated successfully",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/200 {LinkResponse} Link updated successfully"
+                  "$ref": "#/components/schemas/LinkResponse"
                 }
               }
             }
           },
-          "400 {ErrorResponse} Validation error — invalid URL or no fields provided": {
-            "$ref": "#/components/responses/400 {ErrorResponse} Validation error — invalid URL or no fields provided"
+          "400": {
+            "description": "Validation error — invalid URL or no fields provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           },
-          "401 {ErrorResponse} Unauthorized — invalid or missing API key": {
-            "$ref": "#/components/responses/401 {ErrorResponse} Unauthorized — invalid or missing API key"
+          "401": {
+            "description": "Unauthorized — invalid or missing API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           },
-          "404 {ErrorResponse} Link not found": {
-            "$ref": "#/components/responses/404 {ErrorResponse} Link not found"
+          "404": {
+            "description": "Link not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           },
-          "500 {ErrorResponse} Internal server error": {
-            "$ref": "#/components/responses/500 {ErrorResponse} Internal server error"
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         }
       },
@@ -338,14 +498,15 @@
         ],
         "parameters": [
           {
-            "name": "link",
             "in": "path",
+            "name": "link",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Link ID or r_path slug"
             },
-            "example": "example",
-            "description": "Path parameter: link"
+            "description": "Link ID or r_path slug",
+            "example": "summer-2026"
           }
         ],
         "security": [
@@ -355,23 +516,44 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful response",
+            "description": "Link deleted successfully",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/200 {SuccessResponse} Link deleted successfully"
+                  "$ref": "#/components/schemas/SuccessResponse"
                 }
               }
             }
           },
-          "401 {ErrorResponse} Unauthorized — invalid or missing API key": {
-            "$ref": "#/components/responses/401 {ErrorResponse} Unauthorized — invalid or missing API key"
+          "401": {
+            "description": "Unauthorized — invalid or missing API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           },
-          "404 {ErrorResponse} Link not found": {
-            "$ref": "#/components/responses/404 {ErrorResponse} Link not found"
+          "404": {
+            "description": "Link not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           },
-          "500 {ErrorResponse} Internal server error": {
-            "$ref": "#/components/responses/500 {ErrorResponse} Internal server error"
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         }
       }
