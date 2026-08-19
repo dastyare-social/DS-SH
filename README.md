@@ -1,129 +1,253 @@
-# Dastyare Social — SH
+<p align="center">
+  <img src="screenshots/dashboard.png" alt="Dastyare SH — Dashboard" width="100%" />
+</p>
 
-[![Deploy](https://img.shields.io/badge/deploy-Docker%20%7C%20Bun-lightgrey)](https://github.com/omidshabab/sh.dastyare.social)
-[![Stars](https://img.shields.io/github/stars/omidshabab/sh.dastyare.social)](https://github.com/omidshabab/sh.dastyare.social/stargazers)
-[![Forks](https://img.shields.io/github/forks/omidshabab/sh.dastyare.social)](https://github.com/omidshabab/sh.dastyare.social/network/members)
+<h1 align="center">Dastyare SH</h1>
 
-## Why this project
+<p align="center">
+  The open-source URL shortener you actually want to self-host.
+</p>
 
-Dastyare Social SH is a production-ready short-link service built around:
+<p align="center">
+  <a href="#quick-start">Quick Start</a> ·
+  <a href="#self-hosting">Self-Host</a> ·
+  <a href="#api">API</a> ·
+  <a href="https://sh.dastyare.social/docs">API Docs</a> ·
+  <a href="./SELF-HOSTING.md">Deployment Guide</a>
+</p>
 
-- a clean, modern short-link dashboard with redirects and activity tracking
-- a modern REST API with OpenAPI docs (`/docs`)
-- Better Auth integration for sessions, API keys, and admin bootstrap
-- internationalization via next-intl and a fast developer workflow with Bun and Drizzle
+<p align="center">
+  <a href="https://github.com/omidshabab/sh.dastyare.social/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/omidshabab/sh.dastyare.social" alt="License" />
+  </a>
+  <a href="https://github.com/omidshabab/sh.dastyare.social/stargazers">
+    <img src="https://img.shields.io/github/stars/omidshabab/sh.dastyare.social" alt="Stars" />
+  </a>
+  <a href="https://github.com/omidshabab/sh.dastyare.social/network/members">
+    <img src="https://img.shields.io/github/forks/omidshabab/sh.dastyare.social" alt="Forks" />
+  </a>
+  <a href="https://github.com/omidshabab/sh.dastyare.social/issues">
+    <img src="https://img.shields.io/github/issues/omidshabab/sh.dastyare.social" alt="Issues" />
+  </a>
+  <img src="https://img.shields.io/badge/Bun-1.3+-000000?logo=bun" alt="Bun" />
+  <img src="https://img.shields.io/badge/Next.js-16-black?logo=next.js" alt="Next.js" />
+</p>
 
-## Popularity & growth
+---
 
-- clear deployment and self-hosting documentation
-- a fast developer workflow with Bun and Drizzle migrations
-- a growing open-source mindset for maintainability and QA
+## Why Dastyare SH?
 
-## Quick start
+You need a short link. You Google "URL shortener." You find Bitly, Short.io, Rebrandly — all SaaS, all with limits, all with your data on their servers. Then you find the open-source ones: most are unmaintained, poorly documented, or require a PhD to deploy.
 
-**Requirements:** Bun, Node.js 20+, and PostgreSQL.
+**Dastyare SH is different.** It's a short-link service that:
 
-### Local quick start
+- **Takes 30 seconds to deploy** — one Docker command and you're live.
+- **Looks good doing it** — a clean, modern dashboard you won't be embarrassed to share.
+- **Has a real API** — not an afterthought. Every feature in the dashboard is available via REST with full OpenAPI documentation.
+- **Keeps your data yours** — self-hosted on your server, your database, your rules.
+- **Actually works in production** — auth, rate limiting, API keys, admin bootstrap. Not a weekend project.
 
-```bash
-cp .env.example .env
-bun install
-bun run dev          # http://localhost:2947
-```
+---
 
-### One-command server install
+## Demo
 
-Use the install script to bootstrap the repository on a fresh server or VPS.
-```bash
-curl -fsSL https://raw.githubusercontent.com/omidshabab/sh.dastyare.social/main/scripts/install.sh | bash
-```
-> The script creates a default `.env`, builds Docker Compose services, and starts the app.
+<p align="center">
+  <img src="screenshots/links-list.png" alt="Links Dashboard" width="100%" />
+</p>
 
-On first build, migrations run automatically and an admin user is bootstrapped from `ADMIN_EMAIL` / `ADMIN_PASSWORD`.
+<p align="center">
+  <em>Create short links with custom slugs, toggle them on/off, and track every redirect.</em>
+</p>
 
-## Environment variables
+<p align="center">
+  <img src="screenshots/create-link.png" alt="Create Link Modal" width="45%" />
+  &nbsp;&nbsp;
+  <img src="screenshots/api-docs.png" alt="API Documentation" width="45%" />
+</p>
 
-Copy `.env.example` to `.env` and fill the values before running the app. Do not commit `.env` to source control.
+<p align="center">
+  <em>Left: Create a link in one click. Right: Interactive API docs at <code>/docs</code>.</em>
+</p>
 
-### Core environment variables
+> **[Try the live demo →](https://sh.dastyare.social)**
+>
+> Demo mode is enabled — browse the dashboard, explore the API, see how it feels.
 
-- `DATABASE_URL`
-  - PostgreSQL connection string.
-  - Example: `postgresql://sh_user:strong-password@127.0.0.1:5432/dastyare_social_sh`
-  - For hosted providers, use the URL supplied by the provider.
-- `ADMIN_EMAIL`
-  - Administrator email used by bootstrap and admin sign-in.
-- `ADMIN_PASSWORD`
-  - Bootstrap admin password. Use a strong password or secret passphrase.
-- `API_KEY`
-  - Shared API key for protected REST routes.
-  - Generate with `openssl rand -hex 32` or a secure secret generator.
-- `API_KEY_RATE_LIMIT_MAX_REQUESTS`
-  - Max requests allowed per window for API key clients.
-- `API_KEY_RATE_LIMIT_WINDOW_MS`
-  - Window size in milliseconds for API key rate limiting.
-- `BETTER_AUTH_URL`
-  - Public base URL where the app is served.
-  - Example: `https://app.example.com`
-- `BETTER_AUTH_SECRET`
-  - Long random secret for Better Auth session signing.
-  - Generate with `openssl rand -base64 32`.
+---
 
-### How to fill these values
+## Features
 
-- Use your provider dashboard for `DATABASE_URL` and `BETTER_AUTH_URL`.
-- Generate strong secrets with `openssl rand -hex 32`, `openssl rand -base64 32`, or a secure password manager.
-- For `BETTER_AUTH_URL`, use the site URL that will be available in production.
-- AI can help draft example configs and shell commands, but never store or commit actual secret values.
-
-## Pages
-
-Dastyare Social SH includes these pages:
-
-- `/` — short-link dashboard: create, edit, enable/disable, and track links
-- `/register` — sign up / sign in
-- `/r/[r_path]` — public redirect page with a countdown before leaving
-- `/docs` — interactive API docs (Scalar)
-
-## Scripts
-
-| Command | Description |
+| Feature | What it does |
 |---------|-------------|
-| `bun run dev` | Start dev server (port 2947) |
-| `bun run build` | Bootstrap admin + production build |
-| `bun run start` | Start production server |
-| `bun run lint` | Biome check |
-| `bun run format` | Biome format |
-| `bun run bootstrap:admin` | Create or update admin user from env |
-| `bun run db:generate` | Generate migration from schema changes |
-| `bun run db:migrate` | Run Drizzle migrations |
-| `bun run db:drop` | Drop the database |
-| `bun run db:pull` | Introspect the database |
-| `bun run db:push` | Push schema + seed |
-| `bun run db:studio` | Open Drizzle Studio |
-| `bun run db:check` | Drizzle-kit check |
-| `bun run openapi:generate` | Regenerate `public/openapi.json` from route JSDoc |
+| **Custom slugs** | Choose your own short path, or let the app generate one. |
+| **One-click toggle** | Enable or disable any link instantly — no deletion needed. |
+| **Click tracking** | Every redirect is counted, atomically, in real time. |
+| **REST API** | Full CRUD on links, protected with API keys and rate limiting. |
+| **Interactive API docs** | Scalar-powered docs at `/docs`, OpenAPI spec at `/openapi.json`. |
+| **Admin bootstrap** | First user is created automatically from environment variables. |
+| **Demo mode** | Run a public read-only instance for visitors to explore. |
+| **Self-hosted** | Your server, your database, your data. No third parties. |
+| **Docker-ready** | Multi-stage build, Docker Compose included, one-command deploy. |
+| **Modern stack** | Next.js 16, React 19, TypeScript, Bun, Drizzle ORM, Tailwind CSS. |
 
-## Docker Compose
+---
 
-### Production
+## Quick Start
+
+### Option 1: Docker (recommended)
 
 ```bash
+git clone https://github.com/omidshabab/sh.dastyare.social.git
+cd sh.dastyare.social
+cp .env.example .env   # edit with your values
 docker compose up -d --build
 ```
 
-The default `docker-compose.yml` includes services for:
+That's it. The app runs at **http://localhost:2947**. Migrations run automatically on first start, and an admin user is bootstrapped from your `.env` values.
 
-- `app` — the Next.js app
-- `db` — PostgreSQL
+### Option 2: One-command server install
 
-### Development
+Deploy on a fresh VPS or server with a single command:
 
 ```bash
-docker compose -f docker-compose.dev.yml up -d --build
+curl -fsSL https://raw.githubusercontent.com/omidshabab/sh.dastyare.social/main/scripts/install.sh | bash
 ```
 
-The `docker-compose.dev.yml` file mounts the repository into the container and runs the dev server.
+This clones the repo, installs Bun, sets up Docker Compose, and starts everything.
+
+### Option 3: From source
+
+```bash
+git clone https://github.com/omidshabab/sh.dastyare.social.git
+cd sh.dastyare.social
+cp .env.example .env   # fill in DATABASE_URL, BETTER_AUTH_URL, etc.
+bun install
+bun run db:migrate
+bun run bootstrap:admin
+bun run dev
+```
+
+Open **http://localhost:2947** and sign in with the admin credentials from your `.env`.
+
+---
+
+## Self-Hosting
+
+Dastyare SH is designed to be self-hosted. Deploy it on:
+
+- **Any VPS** — DigitalOcean, Hetzner, Linode, AWS EC2, etc.
+- **Vercel** — with an external PostgreSQL provider (Neon, Supabase, etc.)
+- **Railway** — add a PostgreSQL service, set the start command.
+- **Render** — Dockerfile or Node environment, add a managed database.
+- **Fly.io, CapRover, Portainer** — any Docker-compatible platform.
+
+For a complete deployment guide covering environment variables, reverse proxies, HTTPS, and platform-specific instructions, see **[SELF-HOSTING.md](./SELF-HOSTING.md)**.
+
+---
+
+## Environment Variables
+
+Copy `.env.example` to `.env` and fill in the values. **Never commit `.env` to source control.**
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `DATABASE_URL` | Yes | PostgreSQL connection string |
+| `ADMIN_EMAIL` | Yes | Admin email for bootstrap and sign-in |
+| `ADMIN_PASSWORD` | Yes | Admin password (use a strong one) |
+| `BETTER_AUTH_URL` | Yes | Public URL of your app (e.g. `https://links.example.com`) |
+| `BETTER_AUTH_SECRET` | Yes | Session signing secret (`openssl rand -base64 32`) |
+| `API_KEY` | Yes | Shared key for REST API access (`openssl rand -hex 32`) |
+| `API_KEY_RATE_LIMIT_MAX_REQUESTS` | No | Max requests per window (default: `30`) |
+| `API_KEY_RATE_LIMIT_WINDOW_MS` | No | Rate limit window in ms (default: `60000`) |
+
+Generate secure secrets with:
+
+```bash
+openssl rand -base64 32   # for BETTER_AUTH_SECRET
+openssl rand -hex 32      # for API_KEY
+```
+
+---
+
+## API
+
+Every feature in the dashboard is also available through the REST API. Protect your endpoints with a Bearer token.
+
+### Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/links` | List all short links |
+| `POST` | `/api/links` | Create a short link |
+| `GET` | `/api/links/{id}` | Get a link by ID or slug |
+| `PATCH` | `/api/links/{id}` | Update a link |
+| `DELETE` | `/api/links/{id}` | Delete a link |
+
+### Example
+
+```bash
+# Create a short link
+curl -X POST https://sh.dastyare.social/api/links \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"r_to": "https://example.com", "r_path": "example"}'
+
+# Response
+{
+  "id": "a1b2c3d4e5f6",
+  "r_path": "example",
+  "r_to": "https://example.com",
+  "is_active": true,
+  "redirects": 0,
+  "createdAt": "2026-08-16T00:00:00.000Z"
+}
+```
+
+### Documentation
+
+| Resource | URL |
+|----------|-----|
+| Interactive API docs | [`/docs`](https://sh.dastyare.social/docs) |
+| OpenAPI spec (JSON) | [`/openapi.json`](https://sh.dastyare.social/openapi.json) |
+
+---
+
+## Tech Stack
+
+<p align="center">
+  <a href="https://nextjs.org">
+    <img src="https://img.shields.io/badge/Next.js-16-black?logo=next.js" alt="Next.js" />
+  </a>
+  <a href="https://react.dev">
+    <img src="https://img.shields.io/badge/React-19-61DAFB?logo=react" alt="React" />
+  </a>
+  <a href="https://www.typescriptlang.org">
+    <img src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript" alt="TypeScript" />
+  </a>
+  <a href="https://bun.sh">
+    <img src="https://img.shields.io/badge/Bun-runtime-000000?logo=bun" alt="Bun" />
+  </a>
+  <a href="https://www.postgresql.org">
+    <img src="https://img.shields.io/badge/PostgreSQL-16-4169E1?logo=postgresql" alt="PostgreSQL" />
+  </a>
+  <a href="https://orm.drizzle.team">
+    <img src="https://img.shields.io/badge/Drizzle_ORM-0.45-C5F74F" alt="Drizzle ORM" />
+  </a>
+  <a href="https://www.better-auth.com">
+    <img src="https://img.shields.io/badge/Better_Auth-1.6-FF6B35" alt="Better Auth" />
+  </a>
+  <a href="https://trpc.io">
+    <img src="https://img.shields.io/badge/tRPC-11-398CCF?logo=tRPC" alt="tRPC" />
+  </a>
+  <a href="https://tailwindcss.com">
+    <img src="https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss" alt="Tailwind CSS" />
+  </a>
+  <a href="https://biomejs.dev">
+    <img src="https://img.shields.io/badge/Biome-lint--format-60A5FA?logo=biome" alt="Biome" />
+  </a>
+</p>
+
+---
 
 ## Architecture
 
@@ -131,65 +255,77 @@ The `docker-compose.dev.yml` file mounts the repository into the container and r
 src/
 ├── app/
 │   ├── (routes)/
-│   │   ├── (main)/           # Dashboard page
-│   │   ├── r/[r_path]/       # Public redirect page
-│   │   └── register/         # Auth pages
+│   │   ├── (main)/           # Dashboard — create, manage, track links
+│   │   ├── r/[r_path]/       # Public redirect — countdown then redirect
+│   │   └── register/         # Auth — sign up / sign in
 │   ├── api/
 │   │   ├── links/            # REST API (OpenAPI-documented)
 │   │   ├── auth/             # Better Auth handler
-│   │   └── trpc/             # Internal tRPC (used by frontend)
+│   │   └── trpc/             # Internal tRPC (used by dashboard)
 │   └── docs/                 # Scalar API reference UI
 ├── components/               # React UI components
 ├── lib/
-│   ├── actions/              # Server actions (links)
-│   ├── api/                  # Business logic
+│   ├── actions/              # Server actions (link operations)
+│   ├── api/                  # Shared business logic (used by REST, tRPC, and actions)
 │   ├── auth/                 # Better Auth server + client + API key auth
 │   ├── db/                   # Drizzle schema + migrations
-│   ├── trpc/                 # tRPC router (frontend data layer)
-│   └── services/             # Shared services
-├── store/                    # Zustand stores
-└── styles/                   # Global styles
+│   └── trpc/                 # tRPC router (dashboard data layer)
+├── store/                    # Zustand stores (modal state, etc.)
+└── styles/                   # Global styles (Tailwind)
 ```
 
-**Stack:** Next.js 16 · React 19 · Bun · PostgreSQL · Drizzle ORM · Better Auth · tRPC · Tailwind CSS 4 · next-intl · Zustand
+---
 
-## API documentation
+## Scripts
 
-| Resource | URL |
-|----------|-----|
-| Interactive docs (Scalar) | `/docs` |
-| OpenAPI spec (JSON) | `/openapi.json` |
+| Command | Description |
+|---------|-------------|
+| `bun run dev` | Start dev server on port 2947 |
+| `bun run build` | Production build |
+| `bun run start` | Start production server |
+| `bun run lint` | Run Biome linter |
+| `bun run format` | Format code with Biome |
+| `bun run bootstrap:admin` | Create or update admin user from env |
+| `bun run db:generate` | Generate migration from schema changes |
+| `bun run db:migrate` | Run Drizzle migrations |
+| `bun run db:studio` | Open Drizzle Studio (database GUI) |
+| `bun run test` | Run tests with Bun |
 
-Base URL for REST endpoints: `{APP_URL}/api`
+---
 
-All REST routes are protected with the shared API key (`Authorization: Bearer <API_KEY>`):
+## Contributing
 
-- `GET /api/links` — list all short links
-- `POST /api/links` — create a short link (`{ r_to, r_path? }`)
-- `GET /api/links/{id|r_path}` — get a link by ID or slug
-- `PATCH /api/links/{id|r_path}` — update `r_to` and/or `is_active`
-- `DELETE /api/links/{id|r_path}` — delete a link
+Contributions are welcome! Here's how:
 
-## Configuration
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feat/my-feature`)
+3. Commit your changes (`git commit -m 'feat: add my feature'`)
+4. Push to the branch (`git push origin feat/my-feature`)
+5. Open a Pull Request
 
-- **Environment:** Copy `.env.example` — never commit secrets
-- **Port:** Default `2947` (set in `package.json` scripts)
+Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines on code style, testing, and PR expectations.
 
-## Deployment
-
-For a complete self-hosting guide covering environment variables, PostgreSQL, Docker, VPS, Vercel, Railway, and Render, see [SELF-HOSTING.md](./SELF-HOSTING.md).
+---
 
 ## Releases
 
-Push a version tag to publish a GitHub Release with automatically generated
-release notes:
+Push a version tag to publish a GitHub Release:
 
 ```bash
 git tag v0.1.0
 git push origin v0.1.0
 ```
 
-Use semantic versions: patch releases for fixes (`v0.1.1`), minor releases for
-new features (`v0.2.0`), and major releases for breaking changes (`v1.0.0`).
+Use semantic versions: patch (`v0.1.1`), minor (`v0.2.0`), major (`v1.0.0`).
 
-Docker multi-stage build included. See `Dockerfile`. Production build skips DB migration at image build time; run migrations at container start or via CI.
+---
+
+## License
+
+[MIT](./LICENSE) — do whatever you want with it.
+
+---
+
+<p align="center">
+  Built by <a href="https://github.com/omidshabab">Dastyare Social</a>
+</p>
