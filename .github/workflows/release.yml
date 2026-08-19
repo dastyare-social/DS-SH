@@ -1,4 +1,4 @@
-name: Publish GitHub Release
+name: Release
 
 on:
   push:
@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  publish-release:
+  release:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,11 +18,81 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Publish release
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Lint
+        run: bun run lint
+
+      - name: Type check
+        run: bun run typecheck
+
+      - name: Tests
+        run: bun run test
+
+      - name: Build
+        run: bun run build
+
+      - name: Generate changelog
+        id: changelog
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Get the previous tag
+          PREV_TAG=$(git tag --sort=-v:refname | head -2 | tail -1)
+
+          if [ -z "$PREV_TAG" ] || [ "$PREV_TAG" = "$GITHUB_REF_NAME" ]; then
+            # First release — include all commits
+            RANGE="HEAD"
+            echo "body<<EOF" >> "$GITHUB_OUTPUT"
+            echo "## What's Changed" >> "$GITHUB_OUTPUT"
+            echo "" >> "$GITHUB_OUTPUT"
+            git log --pretty=format:"- %s (%h)" --no-merges | head -50 >> "$GITHUB_OUTPUT"
+            echo "" >> "$GITHUB_OUTPUT"
+            echo "EOF" >> "$GITHUB_OUTPUT"
+          else
+            # Subsequent releases — compare to previous tag
+            RANGE="${PREV_TAG}..${GITHUB_REF_NAME}"
+            echo "body<<EOF" >> "$GITHUB_OUTPUT"
+            echo "## What's Changed" >> "$GITHUB_OUTPUT"
+            echo "" >> "$GITHUB_OUTPUT"
+
+            # Features
+            FEATS=$(git log "$RANGE" --pretty=format:"- %s (%h)" --no-merges --grep="^feat" 2>/dev/null)
+            if [ -n "$FEATS" ]; then
+              echo "### Features" >> "$GITHUB_OUTPUT"
+              echo "$FEATS" >> "$GITHUB_OUTPUT"
+              echo "" >> "$GITHUB_OUTPUT"
+            fi
+
+            # Fixes
+            FIXES=$(git log "$RANGE" --pretty=format:"- %s (%h)" --no-merges --grep="^fix" 2>/dev/null)
+            if [ -n "$FIXES" ]; then
+              echo "### Bug Fixes" >> "$GITHUB_OUTPUT"
+              echo "$FIXES" >> "$GITHUB_OUTPUT"
+              echo "" >> "$GITHUB_OUTPUT"
+            fi
+
+            # Other changes
+            OTHERS=$(git log "$RANGE" --pretty=format:"- %s (%h)" --no-merges --invert-grep --grep="^feat" --grep="^fix" 2>/dev/null)
+            if [ -n "$OTHERS" ]; then
+              echo "### Other Changes" >> "$GITHUB_OUTPUT"
+              echo "$OTHERS" >> "$GITHUB_OUTPUT"
+              echo "" >> "$GITHUB_OUTPUT"
+            fi
+
+            echo "**Full Changelog**: https://github.com/${{ github.repository }}/compare/${PREV_TAG}...${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
+            echo "EOF" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release create "$GITHUB_REF_NAME" \
             --verify-tag \
-            --title "$GITHUB_REF_NAME" \
-            --generate-notes
+            --title "Dastyare Social — SH $GITHUB_REF_NAME" \
+            --notes "${{ steps.changelog.outputs.body }}"

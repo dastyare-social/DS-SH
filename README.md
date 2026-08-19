@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="screenshots/dashboard.png" alt="Dastyare SH — Dashboard" width="100%" />
+  <img src="screenshots/dashboard.png" alt="Dastyare Social — SH — Dashboard" width="100%" />
 </p>
 
-<h1 align="center">Dastyare SH</h1>
+<h1 align="center">Dastyare Social — SH</h1>
 
 <p align="center">
   The open-source URL shortener you actually want to self-host.
@@ -35,11 +35,11 @@
 
 ---
 
-## Why Dastyare SH?
+## Why Dastyare Social — SH?
 
 You need a short link. You Google "URL shortener." You find Bitly, Short.io, Rebrandly — all SaaS, all with limits, all with your data on their servers. Then you find the open-source ones: most are unmaintained, poorly documented, or require a PhD to deploy.
 
-**Dastyare SH is different.** It's a short-link service that:
+**Dastyare Social — SH is different.** It's a short-link service that:
 
 - **Takes 30 seconds to deploy** — one Docker command and you're live.
 - **Looks good doing it** — a clean, modern dashboard you won't be embarrassed to share.
@@ -133,7 +133,7 @@ Open **http://localhost:2947** and sign in with the admin credentials from your 
 
 ## Self-Hosting
 
-Dastyare SH is designed to be self-hosted. Deploy it on:
+Dastyare Social — SH is designed to be self-hosted. Deploy it on:
 
 - **Any VPS** — DigitalOcean, Hetzner, Linode, AWS EC2, etc.
 - **Vercel** — with an external PostgreSQL provider (Neon, Supabase, etc.)

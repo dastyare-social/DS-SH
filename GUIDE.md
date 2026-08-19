@@ -1,6 +1,6 @@
 # Dastyare Social — SH — Developer Guide
 
-A complete, hands-on guide to **Dastyare Social SH**: a self-hostable short-link service with a dashboard, redirect tracking, a REST API with OpenAPI docs, and Better Auth.
+A complete, hands-on guide to **Dastyare Social — SH**: a self-hostable short-link service with a dashboard, redirect tracking, a REST API with OpenAPI docs, and Better Auth.
 
 This guide complements `README.md` (quick start + self-hosting). It focuses on how the code is organized and how the pieces work together.
 
@@ -8,7 +8,7 @@ This guide complements `README.md` (quick start + self-hosting). It focuses on h
 
 ## 1. Overview
 
-Dastyare Social SH is a single Next.js app that provides:
+Dastyare Social — SH is a single Next.js app that provides:
 
 - **Dashboard** — create, edit, enable/disable, and delete short links; view stats and redirect counts.
 - **Public redirects** — `/r/<r_path>` shows a short countdown then redirects, recording the hit.

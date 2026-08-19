@@ -1,6 +1,6 @@
 # Self-hosting guide
 
-This document covers how to self-host Dastyare Social SH from scratch on common platforms such as Vercel, VPS, Docker, Railway, Render, and similar services.
+This document covers how to self-host Dastyare Social — SH from scratch on common platforms such as Vercel, VPS, Docker, Railway, Render, and similar services.
 
 ## 1) What you need before deployment
 

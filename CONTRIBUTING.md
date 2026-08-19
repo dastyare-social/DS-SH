@@ -1,6 +1,6 @@
 # Contributing
 
-Guide for humans and AI agents working on Dastyare Social SH.
+Guide for humans and AI agents working on Dastyare Social — SH.
 
 ## Setup
 
