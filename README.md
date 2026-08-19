@@ -318,6 +318,8 @@ git push origin v0.1.0
 
 Use semantic versions: patch (`v0.1.1`), minor (`v0.2.0`), major (`v1.0.0`).
 
+For a complete versioning guide with examples, see **[VERSIONING.md](./VERSIONING.md)**.
+
 ---
 
 ## License
