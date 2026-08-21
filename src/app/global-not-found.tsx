@@ -1,19 +1,18 @@
-import type { Metadata } from "next";
+import { Metadata } from "next";
 import "@/styles/globals.css";
 
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
-import NextTopLoader from "nextjs-toploader";
-import NotFoundGetBackHomeButton from "@/components/not-found-get-back-home-button";
 import { LangDir, LangFont } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
+import NotFoundGetBackHomeButton from "@/components/not-found-get-back-home-button";
 
 export async function generateMetadata(): Promise<Metadata> {
   const tGeneral = await getTranslations("general");
   const tNotFound = await getTranslations("not_found");
 
   return {
-    title: `${tNotFound("meta_title")} — ${tGeneral("app_name")}`,
+    title: tNotFound("meta_title") + " — " + tGeneral("app_name"),
   };
 }
 
@@ -36,15 +35,8 @@ export default async function GlobalNotFound() {
         )}
       >
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <NextTopLoader
-            color="var(--color-primary)"
-            showSpinner={false}
-            shadow="none"
-          />
           <div className="w-full md:max-w-xs flex flex-col justify-center items-center gap-y-5 px-5 py-5 rounded-3xl border-2 border-dashed border-primary/5 bg-primary/3">
-            <div className="text-lg text-center">
-              {tNotFound("description")}
-            </div>
+            <div className="text-center">{tNotFound("description")}</div>
 
             <NotFoundGetBackHomeButton />
           </div>

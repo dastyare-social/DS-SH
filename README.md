@@ -329,5 +329,5 @@ For a complete versioning guide with examples, see **[VERSIONING.md](./VERSIONIN
 ---
 
 <p align="center">
-  Built by <a href="https://github.com/omidshabab">Dastyare Social</a>
+  Built by <a href="https://dastyare.social">Dastyare Social</a>
 </p>
