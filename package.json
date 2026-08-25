@@ -31,7 +31,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 2947",
-    "build": "next build",
+    "build": "bun run bootstrap:admin && next build",
     "start": "next start -p 2947",
     "lint": "biome check",
     "format": "biome format --write",
