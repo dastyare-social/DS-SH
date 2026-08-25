@@ -72,6 +72,8 @@ You need a short link. You Google "URL shortener." You find Bitly, Short.io, Reb
 > **[Try the live demo →](https://sh.dastyare.social)**
 >
 > Demo mode is enabled — browse the dashboard, explore the API, see how it feels.
+>
+> Login: **hey@dastyare.social** / Password: **123456789**
 
 ---
 
