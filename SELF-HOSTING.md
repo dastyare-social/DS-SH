@@ -162,8 +162,8 @@ Push the image to a registry such as Docker Hub or GitHub Container Registry, th
 Example:
 
 ```bash
-docker build -t omidshabab/dastyare-social-sh:latest .
-docker push omidshabab/dastyare-social-sh:latest
+docker build -t dastyaresocial/ds-sh:latest .
+docker push dastyaresocial/ds-sh:latest
 ```
 
 ## 8) Deploy on a VPS
@@ -175,7 +175,7 @@ Use the included Dockerfile and a compose file such as:
 ```yaml
 services:
   app:
-    image: omidshabab/dastyare-social-sh:latest
+    image: dastyaresocial/ds-sh:latest
     ports:
       - "2947:2947"
     env_file:
