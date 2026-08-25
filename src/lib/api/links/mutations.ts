@@ -3,6 +3,7 @@
 import { eq, sql } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { links } from "@/lib/db/schema";
+import { demoLinks } from "@/lib/demo-links";
 import { demoModeError, isDemoMode } from "@/lib/demo-mode";
 import type { LinkRecord, QueryResult } from "./queries";
 
@@ -199,6 +200,14 @@ export async function recordRedirect(
   { success: true; r_to: string } | { success: false; error?: string }
 > {
   try {
+    if (isDemoMode()) {
+      const link = demoLinks.find((l) => l.r_path === r_path);
+      if (!link) return { success: false, error: "Link not found." };
+      if (!link.is_active)
+        return { success: false, error: "Link is inactive." };
+      return { success: true, r_to: link.r_to };
+    }
+
     const [link] = await db
       .select()
       .from(links)

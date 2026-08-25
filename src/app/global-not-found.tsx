@@ -1,18 +1,18 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import "@/styles/globals.css";
 
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
+import NotFoundGetBackHomeButton from "@/components/not-found-get-back-home-button";
 import { LangDir, LangFont } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
-import NotFoundGetBackHomeButton from "@/components/not-found-get-back-home-button";
 
 export async function generateMetadata(): Promise<Metadata> {
   const tGeneral = await getTranslations("general");
   const tNotFound = await getTranslations("not_found");
 
   return {
-    title: tNotFound("meta_title") + " — " + tGeneral("app_name"),
+    title: `${tNotFound("meta_title")} — ${tGeneral("app_name")}`,
   };
 }
 
