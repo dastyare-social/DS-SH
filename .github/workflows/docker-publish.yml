@@ -13,7 +13,7 @@ env:
   # Set a "DOCKERHUB_IMAGE_NAME" repo/org variable (Settings > Secrets and
   # variables > Actions > Variables) to override the image name. Falls back to
   # the repo name below if it isn't set.
-  IMAGE_NAME: ${{ vars.DOCKERHUB_IMAGE_NAME || 'dastyare-social-sh' }}
+  IMAGE_NAME: ${{ vars.DOCKERHUB_IMAGE_NAME || 'ds-sh' }}
 
 jobs:
   docker:

@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: dastyare-social-sh:latest
+    image: ds-sh:latest
     ports:
       - "2947:2947"
     env_file:
