@@ -118,7 +118,7 @@ bun run start
 Use the install script to bootstrap the repository on a fresh server or VPS.
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/omidshabab/sh.dastyare.social/main/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/dastyare-social/DS-SH/main/scripts/install.sh | bash
 ```
 
 The script will:
@@ -132,11 +132,18 @@ The script will:
 
 ## 7) Docker deployment
 
-A Dockerfile is included. Build and run it locally:
+### Pull from Docker Hub
 
 ```bash
-docker build -t dastyare-social-sh .
-docker run -p 2947:2947 --env-file .env dastyare-social-sh
+docker pull dastyaresocial/ds-sh:latest
+docker run -p 2947:2947 --env-file .env dastyaresocial/ds-sh:latest
+```
+
+### Build locally
+
+```bash
+docker build -t ds-sh .
+docker run -p 2947:2947 --env-file .env ds-sh
 ```
 
 ### Production Docker Compose
@@ -153,17 +160,6 @@ Use the development compose file to run the app in dev mode with live code mount
 
 ```bash
 docker compose -f docker-compose.dev.yml up -d --build
-```
-
-### Docker Hub / registry deployment
-
-Push the image to a registry such as Docker Hub or GitHub Container Registry, then deploy it to your target platform.
-
-Example:
-
-```bash
-docker build -t dastyaresocial/ds-sh:latest .
-docker push dastyaresocial/ds-sh:latest
 ```
 
 ## 8) Deploy on a VPS

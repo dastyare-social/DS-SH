@@ -17,17 +17,17 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/omidshabab/sh.dastyare.social/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/omidshabab/sh.dastyare.social" alt="License" />
+  <a href="https://github.com/dastyare-social/DS-SH/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/dastyare-social/DS-SH" alt="License" />
   </a>
-  <a href="https://github.com/omidshabab/sh.dastyare.social/stargazers">
-    <img src="https://img.shields.io/github/stars/omidshabab/sh.dastyare.social" alt="Stars" />
+  <a href="https://github.com/dastyare-social/DS-SH/stargazers">
+    <img src="https://img.shields.io/github/stars/dastyare-social/DS-SH" alt="Stars" />
   </a>
-  <a href="https://github.com/omidshabab/sh.dastyare.social/network/members">
-    <img src="https://img.shields.io/github/forks/omidshabab/sh.dastyare.social" alt="Forks" />
+  <a href="https://github.com/dastyare-social/DS-SH/network/members">
+    <img src="https://img.shields.io/github/forks/dastyare-social/DS-SH" alt="Forks" />
   </a>
-  <a href="https://github.com/omidshabab/sh.dastyare.social/issues">
-    <img src="https://img.shields.io/github/issues/omidshabab/sh.dastyare.social" alt="Issues" />
+  <a href="https://github.com/dastyare-social/DS-SH/issues">
+    <img src="https://img.shields.io/github/issues/dastyare-social/DS-SH" alt="Issues" />
   </a>
   <img src="https://img.shields.io/badge/Bun-1.3+-000000?logo=bun" alt="Bun" />
   <img src="https://img.shields.io/badge/Next.js-16-black?logo=next.js" alt="Next.js" />
@@ -96,32 +96,33 @@ You need a short link. You Google "URL shortener." You find Bitly, Short.io, Reb
 
 ## Quick Start
 
-### Option 1: Docker (recommended)
-
-```bash
-git clone https://github.com/omidshabab/sh.dastyare.social.git
-cd sh.dastyare.social
-cp .env.example .env   # edit with your values
-docker compose up -d --build
-```
-
-That's it. The app runs at **http://localhost:2947**. Migrations run automatically on first start, and an admin user is bootstrapped from your `.env` values.
-
-### Option 2: One-command server install
+### Option 1: One-command server install
 
 Deploy on a fresh VPS or server with a single command:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/omidshabab/sh.dastyare.social/main/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/dastyare-social/DS-SH/main/scripts/install.sh | bash
 ```
 
 This clones the repo, installs Bun, sets up Docker Compose, and starts everything.
 
+### Option 2: Docker Hub
+
+```bash
+docker pull dastyaresocial/ds-sh:latest
+```
+
+Then run it with your `.env` file:
+
+```bash
+docker run -p 2947:2947 --env-file .env dastyaresocial/ds-sh:latest
+```
+
 ### Option 3: From source
 
 ```bash
-git clone https://github.com/omidshabab/sh.dastyare.social.git
-cd sh.dastyare.social
+git clone https://github.com/dastyare-social/DS-SH.git
+cd DS-SH
 cp .env.example .env   # fill in DATABASE_URL, BETTER_AUTH_URL, etc.
 bun install
 bun run db:migrate

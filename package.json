@@ -9,11 +9,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/omidshabab/sh.dastyare.social.git"
+    "url": "git+https://github.com/dastyare-social/DS-SH.git"
   },
-  "homepage": "https://github.com/omidshabab/sh.dastyare.social#readme",
+  "homepage": "https://github.com/dastyare-social/DS-SH#readme",
   "bugs": {
-    "url": "https://github.com/omidshabab/sh.dastyare.social/issues"
+    "url": "https://github.com/dastyare-social/DS-SH/issues"
   },
   "keywords": [
     "short-link",

@@ -100,7 +100,7 @@ bun run bootstrap:admin   # create admin from ADMIN_EMAIL / ADMIN_PASSWORD
 Or bootstrap a fresh server with one command:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/omidshabab/sh.dastyare.social/main/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/dastyare-social/DS-SH/main/scripts/install.sh | bash
 ```
 
 ---
