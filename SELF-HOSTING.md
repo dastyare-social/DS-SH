@@ -33,7 +33,7 @@ BETTER_AUTH_SECRET="long-random-secret"
 ### How to generate or obtain every required value
 
 - `DATABASE_URL`: Copy the full connection URL from your PostgreSQL provider, or build it from `host`, `port`, `user`, `password`, and `database`.
-  - Example local value: `postgresql://sh_user:strong-password@127.0.0.1:5432/dastyare_social_sh`
+  - Example local value: `postgresql://sh_user:strong-password@127.0.0.1:5432/ds_sh`
   - Example managed provider value: `postgresql://username:password@db.example.com:5432/db?sslmode=require`
 - `ADMIN_EMAIL`: Use a valid email address for the bootstrap admin user.
 - `ADMIN_PASSWORD`: Choose a strong password, or generate one with a password manager.
@@ -79,16 +79,16 @@ sudo -u postgres psql
 Inside PostgreSQL:
 
 ```sql
-CREATE DATABASE dastyare_social_sh;
+CREATE DATABASE ds_sh;
 CREATE USER sh_user WITH PASSWORD 'strong-password';
 ALTER ROLE sh_user WITH SUPERUSER;
-GRANT ALL PRIVILEGES ON DATABASE dastyare_social_sh TO sh_user;
+GRANT ALL PRIVILEGES ON DATABASE ds_sh TO sh_user;
 ```
 
 Then set:
 
 ```dotenv
-DATABASE_URL="postgresql://sh_user:strong-password@127.0.0.1:5432/dastyare_social_sh"
+DATABASE_URL="postgresql://sh_user:strong-password@127.0.0.1:5432/ds_sh"
 ```
 
 ## 4) Build and run locally

@@ -117,7 +117,7 @@ if [ ! -f "$ENV_FILE" ]; then
 
   info "Creating .env..."
   cat > "$ENV_FILE" <<EOF
-DATABASE_URL="postgresql://postgres:postgres@db:5432/dastyare_social_sh"
+DATABASE_URL="postgresql://postgres:postgres@db:5432/ds_sh"
 ADMIN_EMAIL=$ADMIN_EMAIL
 ADMIN_PASSWORD=$ADMIN_PASSWORD
 API_KEY=$(generate_secret)

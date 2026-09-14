@@ -1,4 +1,4 @@
-name: dastyare_social_sh
+name: ds-sh-dev
 
 services:
   app:
@@ -8,7 +8,7 @@ services:
     env_file:
       - .env
     environment:
-      DATABASE_URL: postgres://postgres:postgres@db:5432/dastyare_social_sh
+      DATABASE_URL: postgres://postgres:postgres@db:5432/ds_sh
       BETTER_AUTH_URL: http://localhost:2947
     volumes:
       - .:/app
@@ -28,7 +28,7 @@ services:
   db:
     image: postgres:16
     environment:
-      POSTGRES_DB: dastyare_social_sh
+      POSTGRES_DB: ds_sh
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
@@ -37,7 +37,7 @@ services:
       - db-data:/var/lib/postgresql/data
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d dastyare_social_sh"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d ds_sh"]
       interval: 10s
       timeout: 5s
       start_period: 15s

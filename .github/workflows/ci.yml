@@ -23,17 +23,17 @@ jobs:
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: dastyare_social_sh
+          POSTGRES_DB: ds_sh
         ports:
           - 5432:5432
         options: >-
-          --health-cmd="pg_isready -U postgres -d dastyare_social_sh"
+          --health-cmd="pg_isready -U postgres -d ds_sh"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
 
     env:
-      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/dastyare_social_sh
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/ds_sh
       BETTER_AUTH_URL: http://localhost:2947
       BETTER_AUTH_SECRET: ci-test-secret
       ADMIN_EMAIL: admin@example.com
