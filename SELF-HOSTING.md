@@ -115,7 +115,7 @@ bun run start
 
 ## 6) One-command server install
 
-Use the install script to bootstrap the repository on a fresh server or VPS.
+Use the install script to bootstrap the project on a fresh server or VPS.
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/dastyare-social/DS-SH/main/scripts/install.sh | bash
@@ -123,10 +123,10 @@ curl -fsSL https://raw.githubusercontent.com/dastyare-social/DS-SH/main/scripts/
 
 The script will:
 
-- clone the repository if needed
-- install Bun if it is missing
-- create `.env` with default local values
-- build and start Docker Compose services
+- download `docker-compose.yml`, `docker-compose.dev.yml`, and `Dockerfile.vercel` into the current directory
+- prompt for your admin email and password
+- create `.env` with auto-generated secrets (`API_KEY`, `BETTER_AUTH_SECRET`)
+- pull the latest prebuilt `dastyaresocial/ds-sh` image and start Docker Compose
 
 > Review and update the generated `.env` before using this setup in production.
 
@@ -139,19 +139,12 @@ docker pull dastyaresocial/ds-sh:latest
 docker run -p 2947:2947 --env-file .env dastyaresocial/ds-sh:latest
 ```
 
-### Build locally
-
-```bash
-docker build -t ds-sh .
-docker run -p 2947:2947 --env-file .env ds-sh
-```
-
 ### Production Docker Compose
 
-Use the production compose file to run the app with PostgreSQL.
+Use the production compose file to run the app with PostgreSQL using the prebuilt image.
 
 ```bash
-docker compose up -d --build
+docker compose up -d
 ```
 
 ### Development Docker Compose
@@ -159,7 +152,14 @@ docker compose up -d --build
 Use the development compose file to run the app in dev mode with live code mounting.
 
 ```bash
-docker compose -f docker-compose.dev.yml up -d --build
+docker compose -f docker-compose.dev.yml up -d
+```
+
+### Build the image locally (optional)
+
+```bash
+docker build -t ds-sh .
+docker run -p 2947:2947 --env-file .env ds-sh
 ```
 
 ## 8) Deploy on a VPS
@@ -191,14 +191,27 @@ If you run behind Nginx or Caddy, make sure the app is reachable over HTTPS and 
 
 ## 9) Deploy on Vercel
 
-Vercel can host the frontend, but this project also depends on PostgreSQL, so you should treat that as an external service.
+The recommended way to run on Vercel is as a Docker container: Vercel detects the
+pull-only `Dockerfile.vercel` at the project root and runs the prebuilt
+`dastyaresocial/ds-sh` image on **Fluid compute**. PostgreSQL stays an external service.
+See **[docs/deploying-to-vercel.md](./docs/deploying-to-vercel.md)** for the full guide.
 
-### Vercel setup
+### Vercel setup — one command
+
+Run the install script in an empty folder, then deploy that folder to Vercel:
+
+```bash
+mkdir sh && cd sh
+curl -fsSL https://raw.githubusercontent.com/dastyare-social/DS-SH/main/scripts/install.sh | bash
+vercel --prod          # uses Dockerfile.vercel at the root
+```
+
+### Vercel setup — manual
 
 1. Import the GitHub repository in Vercel.
 2. Set the environment variables from the `.env` file.
 3. Make sure `BETTER_AUTH_URL` uses your Vercel domain.
-4. Add a PostgreSQL provider.
+4. Add a PostgreSQL provider (external).
 5. Run migrations as a build or post-deploy step.
 
 ### GitHub Actions deployment
@@ -217,7 +230,10 @@ secret is absent; secrets are not provided to pull requests from forks.
 
 ### Important note
 
-Because the app uses server-side runtime and database access, Vercel is suitable for the app shell but you still need a real database backing service.
+Because the app uses server-side runtime and database access, Vercel is suitable for
+the app container but you still need a real database backing service. On a pull-only
+deployment the app is never built by Vercel — new code ships only when the
+`dastyaresocial/ds-sh` Docker Hub image is re-pushed and the deployment redeployed.
 
 ## 10) Deploy on Railway
 

@@ -1,0 +1,22 @@
+# Vercel Docker deployment (Dockerfile.vercel)
+# Vercel detects this file at the repo root and uses it as the image blueprint, then
+# runs the image on Fluid compute, which injects $PORT for the container to listen on.
+#
+# This deployment does NOT build the app. It reuses the prebuilt Docker Hub image
+# `dastyaresocial/ds-sh` — the same image the self-host compose stack runs. The Next.js
+# build output (.next), node_modules, public assets, scripts, and sources are already
+# baked in, so there is no build stage here.
+#
+# The only change is the runtime command: the self-host image defaults to
+# `next start -p 2947` (and Vercel needs the injected PORT). We override the CMD to bind
+# to 0.0.0.0 on the port Vercel injects ($PORT, default 80) so the health check passes.
+FROM dastyaresocial/ds-sh:latest
+
+# Vercel injects PORT (default 80); the base image is built for the self-host port 2947.
+EXPOSE 80
+
+WORKDIR /app
+
+# Override the base image CMD (next start -p 2947) to honor Vercel's injected PORT.
+# NB: -H is hostname; lowercase -h is --help and would print help + exit (no server).
+CMD ["sh", "-c", "node_modules/.bin/next start -H 0.0.0.0 -p ${PORT:-80}"]

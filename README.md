@@ -104,7 +104,7 @@ Deploy on a fresh VPS or server with a single command:
 curl -fsSL https://raw.githubusercontent.com/dastyare-social/DS-SH/main/scripts/install.sh | bash
 ```
 
-This clones the repo, installs Bun, sets up Docker Compose, and starts everything.
+This downloads `docker-compose.yml`, `docker-compose.dev.yml`, and `Dockerfile.vercel`, prompts for your admin email and password, generates a `.env` with auto-created secrets, pulls the latest prebuilt `dastyaresocial/ds-sh` image, and starts everything with Docker Compose.
 
 ### Option 2: Docker Hub
 
@@ -139,12 +139,12 @@ Open **http://localhost:2947** and sign in with the admin credentials from your 
 Dastyare Social — SH is designed to be self-hosted. Deploy it on:
 
 - **Any VPS** — DigitalOcean, Hetzner, Linode, AWS EC2, etc.
-- **Vercel** — with an external PostgreSQL provider (Neon, Supabase, etc.)
+- **Vercel** — as a Docker container via the pull-only `Dockerfile.vercel` (prebuilt `dastyaresocial/ds-sh` image on Fluid compute), with an external PostgreSQL provider (Neon, Supabase, etc.). See [docs/deploying-to-vercel.md](./docs/deploying-to-vercel.md).
 - **Railway** — add a PostgreSQL service, set the start command.
 - **Render** — Dockerfile or Node environment, add a managed database.
 - **Fly.io, CapRover, Portainer** — any Docker-compatible platform.
 
-For a complete deployment guide covering environment variables, reverse proxies, HTTPS, and platform-specific instructions, see **[SELF-HOSTING.md](./SELF-HOSTING.md)**.
+For a complete deployment guide covering environment variables, reverse proxies, HTTPS, and platform-specific instructions, see **[SELF-HOSTING.md](./SELF-HOSTING.md)**. For the Vercel Docker route specifically, see **[docs/deploying-to-vercel.md](./docs/deploying-to-vercel.md)**.
 
 ---
 

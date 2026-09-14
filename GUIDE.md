@@ -103,6 +103,11 @@ Or bootstrap a fresh server with one command:
 curl -fsSL https://raw.githubusercontent.com/dastyare-social/DS-SH/main/scripts/install.sh | bash
 ```
 
+The installer downloads `docker-compose.yml`, `docker-compose.dev.yml`, and
+`Dockerfile.vercel`, prompts for your admin email/password, generates `.env` with
+auto-created secrets, pulls the prebuilt `dastyaresocial/ds-sh` image, and starts the
+stack with Docker Compose.
+
 ---
 
 ## 5. Environment variables
@@ -245,9 +250,10 @@ Style rules (enforced by Biome, applied automatically with `bun run format`):
 
 ## 12. Deployment
 
-- **Docker Compose** — the app plus a PostgreSQL service; see `README.md` / `SELF-HOSTING.md`. `docker compose up -d --build`.
-- **VPS** — `scripts/install.sh` bootstraps env, DB, and services.
-- **Vercel / Railway / Render** — see `SELF-HOSTING.md` for provider-specific steps.
+- **Docker Compose** — the app plus a PostgreSQL service using the prebuilt `dastyaresocial/ds-sh` image; see `README.md` / `SELF-HOSTING.md`. `docker compose up -d` (pulls the image). For dev with live code mounting: `docker compose -f docker-compose.dev.yml up -d`.
+- **VPS** — `scripts/install.sh` bootstraps `.env`, DB, and services in one command.
+- **Vercel** — as a Docker container on Fluid compute via the pull-only `Dockerfile.vercel`; see [docs/deploying-to-vercel.md](./docs/deploying-to-vercel.md).
+- **Railway / Render** — see `SELF-HOSTING.md` for provider-specific steps.
 - **Releases** — push a semantic version tag (`git tag v0.1.1 && git push origin v0.1.1`) to trigger a GitHub Release.
 
 Production checklist: HTTPS, `BETTER_AUTH_URL` set to the public URL, `ADMIN_EMAIL`/`ADMIN_PASSWORD` bootstrapped, `API_KEY` rotated and secret.

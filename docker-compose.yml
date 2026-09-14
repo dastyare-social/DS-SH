@@ -2,18 +2,22 @@ name: dastyare_social_sh
 
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: ds-sh:latest
+    image: dastyaresocial/ds-sh:latest
     ports:
       - "2947:2947"
     env_file:
       - .env
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     restart: unless-stopped
     command: sh -c "bun run db:migrate && bun run bootstrap:admin && bun run start"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:2947/').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      start_period: 90s
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   db:
     image: postgres:16
@@ -24,6 +28,12 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d dastyare_social_sh"]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   db-data:
