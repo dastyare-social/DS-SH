@@ -7,6 +7,16 @@ function normalizeEmail(value: string) {
   return value.trim().toLowerCase();
 }
 
+function sanitizeUsername(value: string) {
+  return (
+    value
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9_.-]+/g, "")
+      .replace(/(^[._-]+|[._-]+$)/g, "") || "admin"
+  );
+}
+
 async function main() {
   const email = process.env.ADMIN_EMAIL?.trim();
   const password = process.env.ADMIN_PASSWORD?.trim();
@@ -18,6 +28,8 @@ async function main() {
   }
 
   const normalizedEmail = normalizeEmail(email);
+  const configuredUsername = sanitizeUsername(email.split("@")[0]);
+  const configuredName = "Admin User";
 
   const existingUsers = await db
     .select({
@@ -31,13 +43,15 @@ async function main() {
   if (existingUsers.length === 0) {
     const response = await auth.api.signUpEmail({
       body: {
-        name: "",
+        name: configuredName,
         email: normalizedEmail,
         password,
       },
     });
 
-    console.log(`Created admin user ${response.user.email}.`);
+    console.log(
+      `Created admin user ${response.user.email} with username ${configuredUsername}.`,
+    );
     return;
   }
 
@@ -47,9 +61,10 @@ async function main() {
 
   if (!matchingUser) {
     const existingSummary = existingUsers.map((user) => user.email).join(", ");
-    throw new Error(
-      `An admin bootstrap user already exists with a different email. Expected ${normalizedEmail}, found: ${existingSummary || "none"}.`,
+    console.warn(
+      `[bootstrap-admin] An admin already exists with a different email. Expected ${normalizedEmail}, found: ${existingSummary || "none"}. Keeping the existing admin and skipping bootstrap.`,
     );
+    return;
   }
 
   const ctx = await auth.$context;
@@ -70,6 +85,19 @@ async function main() {
       accountId: matchingUser.id,
       password: passwordHash,
     });
+  }
+
+  const updateFields: Partial<Record<string, string>> = {};
+  if (matchingUser.name !== configuredName) {
+    updateFields.name = configuredName;
+  }
+
+  if ((matchingUser.username || "") !== configuredUsername) {
+    updateFields.username = configuredUsername;
+  }
+
+  if (Object.keys(updateFields).length > 0) {
+    await ctx.internalAdapter.updateUser(matchingUser.id, updateFields);
   }
 
   console.log(

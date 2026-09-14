@@ -5,7 +5,10 @@
     "login_to_panel": "Login To Panel",
     "login_panel_subtitle": "Use Email and Password Defined on the Configurations",
     "login_panel_title": "Panel — Dastyare Social — SH",
-    "login_panel_title_span": "To Manage Your Links without Any BS"
+    "login_panel_title_span": "To Manage Your Links without Any BS",
+    "email_required": "Email is required",
+    "all_fields_required": "All fields are required",
+    "login_error": "Login Error"
   },
   "header": {
     "create": "Create",
