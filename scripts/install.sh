@@ -82,7 +82,10 @@ restore_echo() {
 
 if [ ! -f "$ENV_FILE" ]; then
   printf '\033[1;36m--- Dastyare Social — SH — INSTALLER ---\033[0m\n'
-  if [ -r /dev/tty ] 2>/dev/null; then
+  # /dev/tty can report readable (-r) even when no controlling terminal is
+  # attached (e.g. a non-interactive agent shell), which makes reads fail. Probe
+  # with a write too, so a phantom tty falls through to the stdin branch below.
+  if [ -r /dev/tty ] && printf '' > /dev/tty 2>/dev/null; then
     trap restore_echo EXIT INT TERM
     printf '%s' "Email:    "
     read -r ADMIN_EMAIL < /dev/tty || true
