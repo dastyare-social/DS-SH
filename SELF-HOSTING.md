@@ -123,7 +123,7 @@ curl -fsSL https://raw.githubusercontent.com/dastyare-social/DS-SH/main/scripts/
 
 The script will:
 
-- download `docker-compose.yml`, `docker-compose.dev.yml`, and `Dockerfile.vercel` into the current directory
+- download `docker-compose.yml` and `Dockerfile.vercel` into the current directory
 - prompt for your admin email and password
 - create `.env` with auto-generated secrets (`API_KEY`, `BETTER_AUTH_SECRET`)
 - pull the latest prebuilt `dastyaresocial/ds-sh` image and start Docker Compose
@@ -145,14 +145,6 @@ Use the production compose file to run the app with PostgreSQL using the prebuil
 
 ```bash
 docker compose up -d
-```
-
-### Development Docker Compose
-
-Use the development compose file to run the app in dev mode with live code mounting.
-
-```bash
-docker compose -f docker-compose.dev.yml up -d
 ```
 
 ### Build the image locally (optional)

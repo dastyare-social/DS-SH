@@ -4,17 +4,14 @@ set -euo pipefail
 APP_DIR=${1:-"."}
 ENV_FILE=".env"
 DOCKER_COMPOSE_FILE="docker-compose.yml"
-DOCKER_COMPOSE_DEV_FILE="docker-compose.dev.yml"
 DOCKER_COMPOSE_URL="https://raw.githubusercontent.com/dastyare-social/DS-SH/main/docker-compose.yml"
-DOCKER_COMPOSE_DEV_URL="https://raw.githubusercontent.com/dastyare-social/DS-SH/main/docker-compose.dev.yml"
 BASE_URL="https://raw.githubusercontent.com/dastyare-social/DS-SH/main"
 
-# Both compose files are dropped into the project so you can run the prebuilt
-# image in production (docker-compose.yml) or in dev mode with live code
-# mounting (docker-compose.dev.yml).
+# The production compose file is dropped into the project so you can run the
+# prebuilt image with PostgreSQL. (docker-compose.dev.yml is dev-team tooling
+# and is intentionally not installed.)
 DOCKER_COMPOSE_FILES=(
   "docker-compose.yml"
-  "docker-compose.dev.yml"
 )
 # A pull-only Vercel blueprint (FROM dastyaresocial/ds-sh:latest + PORT-aware
 # CMD) dropped at the project root so the installed folder can be deployed to
@@ -175,11 +172,10 @@ for FILE in "${VERCEL_FILES[@]}"; do
 done
 
 info "Starting the app with Docker Compose (pulls the latest prebuilt dastyaresocial/ds-sh image)..."
-info "The compose project is pinned to \"dastyare_social_sh\", so containers/volumes are prefixed dastyare_social_sh- regardless of the install directory."
+info "The compose project name is pinned in docker-compose.yml, so container/volume prefixes match whatever is set there."
 docker compose -f "$DOCKER_COMPOSE_FILE" pull
 docker compose -f "$DOCKER_COMPOSE_FILE" up -d
 
 info "Installation complete."
 info "Open http://localhost:2947 after Docker Compose finishes starting the services."
-info "For development with live code mounting, run: docker compose -f docker-compose.dev.yml up -d"
 warn "Review .env and update secrets before using this in production."

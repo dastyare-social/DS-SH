@@ -103,7 +103,7 @@ Or bootstrap a fresh server with one command:
 curl -fsSL https://raw.githubusercontent.com/dastyare-social/DS-SH/main/scripts/install.sh | bash
 ```
 
-The installer downloads `docker-compose.yml`, `docker-compose.dev.yml`, and
+The installer downloads `docker-compose.yml`, and
 `Dockerfile.vercel`, prompts for your admin email/password, generates `.env` with
 auto-created secrets, pulls the prebuilt `dastyaresocial/ds-sh` image, and starts the
 stack with Docker Compose.
@@ -250,7 +250,7 @@ Style rules (enforced by Biome, applied automatically with `bun run format`):
 
 ## 12. Deployment
 
-- **Docker Compose** — the app plus a PostgreSQL service using the prebuilt `dastyaresocial/ds-sh` image; see `README.md` / `SELF-HOSTING.md`. `docker compose up -d` (pulls the image). For dev with live code mounting: `docker compose -f docker-compose.dev.yml up -d`.
+- **Docker Compose** — the app plus a PostgreSQL service using the prebuilt `dastyaresocial/ds-sh` image; see `README.md` / `SELF-HOSTING.md`. `docker compose up -d` (pulls the image).
 - **VPS** — `scripts/install.sh` bootstraps `.env`, DB, and services in one command.
 - **Vercel** — as a Docker container on Fluid compute via the pull-only `Dockerfile.vercel`; see [docs/deploying-to-vercel.md](./docs/deploying-to-vercel.md).
 - **Railway / Render** — see `SELF-HOSTING.md` for provider-specific steps.

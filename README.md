@@ -104,7 +104,7 @@ Deploy on a fresh VPS or server with a single command:
 curl -fsSL https://raw.githubusercontent.com/dastyare-social/DS-SH/main/scripts/install.sh | bash
 ```
 
-This downloads `docker-compose.yml`, `docker-compose.dev.yml`, and `Dockerfile.vercel`, prompts for your admin email and password, generates a `.env` with auto-created secrets, pulls the latest prebuilt `dastyaresocial/ds-sh` image, and starts everything with Docker Compose.
+This downloads `docker-compose.yml` and `Dockerfile.vercel`, prompts for your admin email and password, generates a `.env` with auto-created secrets, pulls the latest prebuilt `dastyaresocial/ds-sh` image, and starts everything with Docker Compose.
 
 ### Option 2: Docker Hub
 
